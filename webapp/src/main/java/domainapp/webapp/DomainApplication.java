@@ -131,8 +131,8 @@ public class DomainApplication extends IsisWicketApplication {
                 bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Domain App");
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
-                bind(String.class).annotatedWith(Names.named("brandLogoHeader")).toInstance("/images/domain-logo-header.png");
-                bind(String.class).annotatedWith(Names.named("brandLogoSignin")).toInstance("/images/domain-logo-signin.png");
+                bind(String.class).annotatedWith(Names.named("brandLogoHeader")).toInstance("/images/domainapp-logo-header.png");
+                bind(String.class).annotatedWith(Names.named("brandLogoSignin")).toInstance("/images/domainapp-logo-signin.png");
                 bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines(getClass(), "welcome.html"));
                 bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Domain App");
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));

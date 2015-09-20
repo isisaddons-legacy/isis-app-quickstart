@@ -45,8 +45,7 @@ public class ExportAsXmlContributions extends AbstractFactoryAndRepository {
         }
 
         final XmlSnapshotService.Builder builder = xmlSnapshotService.builderFor(simpleObject);
-        builder.includePath("dependencies");
-        builder.includePath("similarTo");
+        //builder.includePath("children");
 
         final XmlSnapshotService.Snapshot snapshot = builder.build();
 
@@ -74,7 +73,7 @@ public class ExportAsXmlContributions extends AbstractFactoryAndRepository {
         }
 
         final XmlSnapshotService.Builder builder = xmlSnapshotService.builderFor(dashboard);
-        builder.includePath("notYetComplete");
+        builder.includePath("objects");
 
         final XmlSnapshotService.Snapshot snapshot = builder.build();
 

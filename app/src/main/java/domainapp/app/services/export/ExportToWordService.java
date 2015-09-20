@@ -50,7 +50,7 @@ import domainapp.dom.simple.SimpleObjects;
 
 @DomainService
 @DomainServiceLayout(
-        named="ToDos",
+        named="Simple Objects",
         menuOrder = "30"
 )
 public class ExportToWordService {
