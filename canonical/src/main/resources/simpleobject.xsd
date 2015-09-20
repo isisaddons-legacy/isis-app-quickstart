@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://module.dto.simpleapp2/simpleobject.xsd"
+<xs:schema targetNamespace="http://module.dto.domainapp/simpleobject.xsd"
     elementFormDefault="qualified"
-    xmlns="http://module.dto.simpleapp2/simpleobject.xsd"
+    xmlns="http://module.dto.domainapp/simpleobject.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
 
