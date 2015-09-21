@@ -22,6 +22,8 @@ import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
@@ -60,7 +62,9 @@ import org.apache.isis.applib.util.ObjectContracts;
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
-@DomainObject
+@DomainObject(
+        editing = Editing.DISABLED
+)
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT,
         cssClassFa = "fa-flag"
@@ -80,9 +84,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     @javax.jdo.annotations.Column(allowsNull="false", length = 40)
     @Title(sequence="1")
-    @Property(
-            editing = Editing.DISABLED
-    )
+    @Property
     public String getName() {
         return name;
     }
@@ -118,6 +120,120 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     public TranslatableString validateUpdateName(final String name) {
         return name.contains("!")? TranslatableString.tr("Exclamation mark is not allowed"): null;
+    }
+
+    //endregion
+
+    //region > anInteger (property)
+    private Integer anInteger;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    public Integer getInteger() {
+        return anInteger;
+    }
+
+    public void setInteger(final Integer anInteger) {
+        this.anInteger = anInteger;
+    }
+    //endregion
+
+    //region > updateInteger (action)
+
+    public static class UpdateIntegerDomainEvent extends ActionDomainEvent<SimpleObject> {
+        public UpdateIntegerDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = UpdateIntegerDomainEvent.class
+    )
+    public SimpleObject updateInteger(
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "New integer")
+            final Integer integer) {
+        setInteger(integer);
+        return this;
+    }
+
+    public Integer default0UpdateInteger() {
+        return getInteger();
+    }
+
+    //endregion
+
+    //region > aLocalDate (property)
+    private LocalDate aLocalDate;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    public LocalDate getLocalDate() {
+        return aLocalDate;
+    }
+
+    public void setLocalDate(final LocalDate aLocalDate) {
+        this.aLocalDate = aLocalDate;
+    }
+    //endregion
+
+    //region > updateLocalDate (action)
+
+    public static class UpdateLocalDateDomainEvent extends ActionDomainEvent<SimpleObject> {
+        public UpdateLocalDateDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = UpdateLocalDateDomainEvent.class
+    )
+    public SimpleObject updateLocalDate(
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "New localdate")
+            final LocalDate localdate) {
+        setLocalDate(localdate);
+        return this;
+    }
+
+    public LocalDate default0UpdateLocalDate() {
+        return getLocalDate();
+    }
+
+    //endregion
+
+    //region > aBoolean (property)
+    private Boolean aBoolean;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    public Boolean getBoolean() {
+        return aBoolean;
+    }
+
+    public void setBoolean(final Boolean aBoolean) {
+        this.aBoolean = aBoolean;
+    }
+    //endregion
+
+    //region > updateBoolean (action)
+
+    public static class UpdateBooleanDomainEvent extends ActionDomainEvent<SimpleObject> {
+        public UpdateBooleanDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = UpdateBooleanDomainEvent.class
+    )
+    public SimpleObject updateBoolean(
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "New boolean")
+            final Boolean aBoolean) {
+        setBoolean(aBoolean);
+        return this;
+    }
+
+    public Boolean default0UpdateBoolean() {
+        return getBoolean();
     }
 
     //endregion

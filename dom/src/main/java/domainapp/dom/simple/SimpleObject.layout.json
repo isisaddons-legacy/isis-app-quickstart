@@ -29,10 +29,15 @@
                                     }
                                 }
                             }
-                        },
+                        }
+                    }
+                },
+                "Misc": {
+                    "members": {
                         "versionSequence": {
                             "propertyLayout": {
-                                "name": "version"
+                                "name": "version",
+                                "hidden": "ALL_TABLES"
                             }
                         }
                     }
@@ -40,8 +45,40 @@
             }
         },
         {
-            "span": 0,
-            "memberGroups": {}
+            "span": 6,
+            "memberGroups": {
+                "Data": {
+                    "members": {
+                        "integer": {
+                            "actions": {
+                                "updateInteger": {
+                                    "actionLayout": {
+                                        "position": "BOTTOM"
+                                    }
+                                }
+                            }
+                        },
+                        "localDate": {
+                            "actions": {
+                                "updateLocalDate": {
+                                    "actionLayout": {
+                                        "position": "BOTTOM"
+                                    }
+                                }
+                            }
+                        },
+                        "boolean": {
+                            "actions": {
+                                "updateBoolean": {
+                                    "actionLayout": {
+                                        "position": "BOTTOM"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         {
             "span": 0,

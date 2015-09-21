@@ -90,6 +90,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.event</groupId>
+            <artifactId>isis-module-event-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.excel</groupId>
+            <artifactId>isis-module-excel-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
             <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
             <exclusions>

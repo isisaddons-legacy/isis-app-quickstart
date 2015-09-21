@@ -44,6 +44,8 @@ public class DomainAppAppManifest implements AppManifest {
                 org.isisaddons.module.command.CommandModule.class,
                 org.isisaddons.module.devutils.DevUtilsModule.class,
                 org.isisaddons.module.docx.DocxModule.class,
+                org.isisaddons.module.event.EventModule.class,
+                org.isisaddons.module.excel.ExcelModule.class,
                 org.isisaddons.module.publishing.PublishingModule.class,
                 org.isisaddons.module.sessionlogger.SessionLoggerModule.class,
                 org.isisaddons.module.security.SecurityModule.class,

@@ -16,35 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.app.services.homepage;
 
-import java.util.List;
-
-import org.apache.isis.applib.annotation.ViewModel;
+package domainapp.fixture.scenarios.spreadsheets;
 
 import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
+import domainapp.fixture.CreateUsingSpreadsheetAbstract;
 
-@ViewModel
-public class HomePageViewModel {
+public class CreateUsingSpreadsheetSimpleObjects extends CreateUsingSpreadsheetAbstract<SimpleObject> {
 
-    //region > title
-    public String title() {
-        return getObjects().size() + " objects";
+    public CreateUsingSpreadsheetSimpleObjects() {
+        super(SimpleObject.class);
     }
-    //endregion
-
-    //region > object (collection)
-    @org.apache.isis.applib.annotation.HomePage
-    public List<SimpleObject> getObjects() {
-        return simpleObjectMenu.listAll();
-    }
-    //endregion
-
-    //region > injected services
-
-    @javax.inject.Inject
-    SimpleObjectMenu simpleObjectMenu;
-
-    //endregion
 }

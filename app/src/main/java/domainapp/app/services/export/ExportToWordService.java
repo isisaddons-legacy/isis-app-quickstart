@@ -46,7 +46,7 @@ import org.isisaddons.module.docx.dom.LoadTemplateException;
 import org.isisaddons.module.docx.dom.MergeException;
 
 import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjects;
+import domainapp.dom.simple.SimpleObjectMenu;
 
 @DomainService
 @DomainServiceLayout(
@@ -66,7 +66,7 @@ public class ExportToWordService {
     @MemberOrder(sequence = "10")
     public Blob exportToWordDoc() throws IOException, JDOMException, MergeException {
 
-        final List<SimpleObject> list = simpleObjects.listAll();
+        final List<SimpleObject> list = simpleObjectMenu.listAll();
         return exportToWordDoc(list);
     }
 
@@ -219,7 +219,7 @@ public class ExportToWordService {
     private DocxService docxService;
 
     @javax.inject.Inject
-    private SimpleObjects simpleObjects;
+    private SimpleObjectMenu simpleObjectMenu;
 
     @javax.inject.Inject
     private ClockService clockService;
