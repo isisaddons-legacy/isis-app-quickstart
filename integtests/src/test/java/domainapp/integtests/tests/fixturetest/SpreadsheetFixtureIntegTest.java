@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.integtests.tests.modules.simple;
+package domainapp.integtests.tests.fixturetest;
 
 import java.util.List;
 
@@ -27,10 +27,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
-import domainapp.fixture.dom.simple.SimpleObjectsTearDown;
-import domainapp.fixture.scenarios.spreadsheets.CreateUsingSpreadsheetSimpleObjects;
+import domainapp.dom.quick.QuickObject;
+import domainapp.dom.quick.QuickObjectMenu;
+import domainapp.fixture.dom.quick.QuickObjectsTearDown;
+import domainapp.fixture.scenarios.spreadsheets.CreateUsingSpreadsheetQuickObjects;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +39,7 @@ public class SpreadsheetFixtureIntegTest extends DomainAppIntegTest {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    SimpleObjectMenu simpleObjectMenu;
+    QuickObjectMenu quickObjectMenu;
 
     public static class ListAll extends SpreadsheetFixtureIntegTest {
 
@@ -47,18 +47,18 @@ public class SpreadsheetFixtureIntegTest extends DomainAppIntegTest {
         public void happyCase() throws Exception {
 
             // given
-            fixtureScripts.runFixtureScript(new SimpleObjectsTearDown(), null);
+            fixtureScripts.runFixtureScript(new QuickObjectsTearDown(), null);
 
             // when
-            final CreateUsingSpreadsheetSimpleObjects fs = new CreateUsingSpreadsheetSimpleObjects();
-            fs.setResourceName("SimpleObjects-1.xlsx");
+            final CreateUsingSpreadsheetQuickObjects fs = new CreateUsingSpreadsheetQuickObjects();
+            fs.setResourceName("QuickObjects-1.xlsx");
 
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
             assertThat(fs.getObjects()).hasSize(3);
 
             // then
-            final List<SimpleObject> all = wrap(simpleObjectMenu).listAll();
+            final List<QuickObject> all = wrap(quickObjectMenu).listAll();
 
             assertThat(all.get(0).getName()).isEqualTo("Foo");
             assertThat(all.get(0).getInteger()).isEqualTo(111);

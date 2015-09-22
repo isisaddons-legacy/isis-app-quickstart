@@ -20,7 +20,7 @@ import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
-import domainapp.dom.simple.SimpleObject;
+import domainapp.dom.quick.QuickObject;
 
 public class DomainAppVetoSelectedMembersPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
@@ -36,7 +36,7 @@ public class DomainAppVetoSelectedMembersPermissions extends AbstractRoleAndPerm
         newMemberPermissions(
                 ApplicationPermissionRule.VETO,
                 ApplicationPermissionMode.VIEWING,
-                SimpleObject.class,
+                QuickObject.class,
                 "updateName");
     }
 

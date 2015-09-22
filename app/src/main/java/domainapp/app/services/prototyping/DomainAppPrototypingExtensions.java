@@ -34,7 +34,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import domainapp.app.services.homepage.HomePageService;
-import domainapp.fixture.scenarios.RecreateSimpleObjects;
+import domainapp.fixture.scenarios.RecreateQuickObjects;
 
 /**
  * Enables fixtures to be installed from the application.
@@ -57,7 +57,7 @@ public class DomainAppPrototypingExtensions {
     @MemberOrder(sequence = "500.10.2")
     public Object recreateSimpleObjectsThenOpenDashboard() {
         final FixtureScript fs = fixtureScripts.findFixtureScriptFor(
-                RecreateSimpleObjects.class);
+                RecreateQuickObjects.class);
         final List<FixtureResult> unusedResults = fs.run(null);
         return homePageService.homePage();
     }

@@ -29,7 +29,7 @@ import org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotService;
 import org.apache.isis.applib.value.Clob;
 
 import domainapp.app.services.homepage.HomePageViewModel;
-import domainapp.dom.simple.SimpleObject;
+import domainapp.dom.quick.QuickObject;
 
 @DomainService(nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY)
 public class ExportAsXmlContributions extends AbstractFactoryAndRepository {
@@ -37,14 +37,14 @@ public class ExportAsXmlContributions extends AbstractFactoryAndRepository {
     // region > exportAsXml for ToDoItem (action)
     @Action(semantics = SemanticsOf.SAFE)
     public Clob exportAsXml(
-            final SimpleObject simpleObject,
+            final QuickObject quickObject,
             String fileName
     ) {
         if(!fileName.endsWith(".xml")) {
             fileName += ".xml";
         }
 
-        final XmlSnapshotService.Builder builder = xmlSnapshotService.builderFor(simpleObject);
+        final XmlSnapshotService.Builder builder = xmlSnapshotService.builderFor(quickObject);
         //builder.includePath("children");
 
         final XmlSnapshotService.Snapshot snapshot = builder.build();

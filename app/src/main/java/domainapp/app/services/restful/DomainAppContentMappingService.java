@@ -31,7 +31,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.conmap.ContentMappingService;
 
-import domainapp.dom.simple.SimpleObject;
+import domainapp.dom.quick.QuickObject;
 import domainapp.dto.module.simpleobject.OidDto;
 import domainapp.dto.module.simpleobject.SimpleObjectDto;
 import ma.glasnost.orika.MapperFactory;
@@ -49,7 +49,7 @@ public class DomainAppContentMappingService implements ContentMappingService {
     public void init() {
         mapperFactory = new DefaultMapperFactory.Builder().build();
         mapperFactory.registerClassMap(
-                mapperFactory.classMap(SimpleObject.class, SimpleObjectDto.class)
+                mapperFactory.classMap(QuickObject.class, SimpleObjectDto.class)
                         .byDefault() // all fields are the compatible
                         .toClassMap());
         mapperFactory.registerClassMap(
@@ -66,7 +66,7 @@ public class DomainAppContentMappingService implements ContentMappingService {
             final List<MediaType> acceptableMediaTypes,
             final RepresentationType representationType) {
 
-        if(object instanceof SimpleObject) {
+        if(object instanceof QuickObject) {
             final Bookmark bookmark = bookmarkService.bookmarkFor(object);
 
             final SimpleObjectDto dto = mapperFactory.getMapperFacade().map(object, SimpleObjectDto.class);

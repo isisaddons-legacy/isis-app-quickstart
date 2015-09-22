@@ -14,35 +14,35 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package domainapp.dom.simple;
+package domainapp.dom.quick;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObjectTest {
+public class QuickObjectTest {
 
-    SimpleObject simpleObject;
+    QuickObject quickObject;
 
     @Before
     public void setUp() throws Exception {
-        simpleObject = new SimpleObject();
+        quickObject = new QuickObject();
     }
 
-    public static class Name extends SimpleObjectTest {
+    public static class Name extends QuickObjectTest {
 
         @Test
         public void happyCase() throws Exception {
             // given
             String name = "Foobar";
-            assertThat(simpleObject.getName()).isNull();
+            assertThat(quickObject.getName()).isNull();
 
             // when
-            simpleObject.setName(name);
+            quickObject.setName(name);
 
             // then
-            assertThat(simpleObject.getName()).isEqualTo(name);
+            assertThat(quickObject.getName()).isEqualTo(name);
         }
     }
 

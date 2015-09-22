@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.simple;
+package domainapp.dom.quick;
 
 import java.util.List;
 
@@ -37,9 +37,9 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 )
 @DomainServiceLayout(
         menuOrder = "10",
-        named = "Simple Objects"
+        named = "Quick Objects"
 )
-public class SimpleObjectMenu {
+public class QuickObjectMenu {
 
     //region > listAll (action)
     @Action(
@@ -49,8 +49,8 @@ public class SimpleObjectMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<SimpleObject> listAll() {
-        return simpleObjectRepository.listAll();
+    public List<QuickObject> listAll() {
+        return quickObjectRepository.listAll();
     }
     //endregion
 
@@ -62,17 +62,17 @@ public class SimpleObjectMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "2")
-    public List<SimpleObject> findByName(
+    public List<QuickObject> findByName(
             @ParameterLayout(named="Name")
             final String name
     ) {
-        return simpleObjectRepository.findByName(name);
+        return quickObjectRepository.findByName(name);
     }
     //endregion
 
     //region > create (action)
-    public static class CreateDomainEvent extends ActionDomainEvent<SimpleObjectMenu> {
-        public CreateDomainEvent(final SimpleObjectMenu source, final Identifier identifier, final Object... arguments) {
+    public static class CreateDomainEvent extends ActionDomainEvent<QuickObjectMenu> {
+        public CreateDomainEvent(final QuickObjectMenu source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -81,10 +81,10 @@ public class SimpleObjectMenu {
             domainEvent = CreateDomainEvent.class
     )
     @MemberOrder(sequence = "3")
-    public SimpleObject create(
+    public QuickObject create(
             @ParameterLayout(named="Name")
             final String name) {
-        return simpleObjectRepository.create(name);
+        return quickObjectRepository.create(name);
     }
 
     //endregion
@@ -92,7 +92,7 @@ public class SimpleObjectMenu {
     //region > injected services
 
     @javax.inject.Inject
-    SimpleObjectRepository simpleObjectRepository;
+    QuickObjectRepository quickObjectRepository;
 
     //endregion
 }

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.simple;
+package domainapp.dom.quick;
 
 import java.util.List;
 
@@ -29,28 +29,28 @@ import org.apache.isis.applib.query.QueryDefault;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = SimpleObject.class
+        repositoryFor = QuickObject.class
 )
-public class SimpleObjectRepository {
+public class QuickObjectRepository {
 
     //region > listAll (programmatic)
 
     @Programmatic
-    public List<SimpleObject> listAll() {
-        return container.allInstances(SimpleObject.class);
+    public List<QuickObject> listAll() {
+        return container.allInstances(QuickObject.class);
     }
     //endregion
 
     //region > findByName (programmatic)
 
     @Programmatic
-    public List<SimpleObject> findByName(
+    public List<QuickObject> findByName(
             @ParameterLayout(named="Name")
             final String name
     ) {
         return container.allMatches(
                 new QueryDefault<>(
-                        SimpleObject.class,
+                        QuickObject.class,
                         "findByName",
                         "name", name));
     }
@@ -59,8 +59,8 @@ public class SimpleObjectRepository {
     //region > create (programmatic)
 
     @Programmatic
-    public SimpleObject create(final String name) {
-        final SimpleObject obj = container.newTransientInstance(SimpleObject.class);
+    public QuickObject create(final String name) {
+        final QuickObject obj = container.newTransientInstance(QuickObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
         return obj;

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.integtests.tests.modules.simple;
+package domainapp.integtests.tests.modules.quick;
 
 import javax.inject.Inject;
 
@@ -28,38 +28,38 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.fixture.scenarios.RecreateSimpleObjects;
+import domainapp.dom.quick.QuickObject;
+import domainapp.fixture.scenarios.RecreateQuickObjects;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObjectIntegTest extends DomainAppIntegTest {
+public class QuickObjectIntegTest extends DomainAppIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
 
-    RecreateSimpleObjects fs;
-    SimpleObject simpleObjectPojo;
-    SimpleObject simpleObjectWrapped;
+    RecreateQuickObjects fs;
+    QuickObject quickObjectPojo;
+    QuickObject quickObjectWrapped;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new RecreateSimpleObjects();
+        fs = new RecreateQuickObjects();
         fixtureScripts.runFixtureScript(fs, null);
 
-        simpleObjectPojo = fs.getSimpleObjects().get(0);
+        quickObjectPojo = fs.getQuickObjects().get(0);
 
-        assertThat(simpleObjectPojo).isNotNull();
-        simpleObjectWrapped = wrap(simpleObjectPojo);
+        assertThat(quickObjectPojo).isNotNull();
+        quickObjectWrapped = wrap(quickObjectPojo);
     }
 
-    public static class Name extends SimpleObjectIntegTest {
+    public static class Name extends QuickObjectIntegTest {
 
         @Test
         public void accessible() throws Exception {
             // when
-            final String name = simpleObjectWrapped.getName();
+            final String name = quickObjectWrapped.getName();
             // then
             assertThat(name).isNotNull();
         }
@@ -71,20 +71,20 @@ public class SimpleObjectIntegTest extends DomainAppIntegTest {
             expectedExceptions.expect(DisabledException.class);
 
             // when
-            simpleObjectWrapped.setName("new name");
+            quickObjectWrapped.setName("new name");
         }
     }
 
-    public static class UpdateName extends SimpleObjectIntegTest {
+    public static class UpdateName extends QuickObjectIntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // when
-            simpleObjectWrapped.updateName("new name");
+            quickObjectWrapped.updateName("new name");
 
             // then
-            assertThat(simpleObjectWrapped.getName()).isEqualTo("new name");
+            assertThat(quickObjectWrapped.getName()).isEqualTo("new name");
         }
 
         @Test
@@ -95,12 +95,12 @@ public class SimpleObjectIntegTest extends DomainAppIntegTest {
             expectedExceptions.expectMessage("Exclamation mark is not allowed");
 
             // when
-            simpleObjectWrapped.updateName("new name!");
+            quickObjectWrapped.updateName("new name!");
         }
     }
 
 
-    public static class Title extends SimpleObjectIntegTest {
+    public static class Title extends QuickObjectIntegTest {
 
         @Inject
         DomainObjectContainer container;
@@ -109,10 +109,10 @@ public class SimpleObjectIntegTest extends DomainAppIntegTest {
         public void interpolatesName() throws Exception {
 
             // given
-            final String name = simpleObjectWrapped.getName();
+            final String name = quickObjectWrapped.getName();
 
             // when
-            final String title = container.titleOf(simpleObjectWrapped);
+            final String title = container.titleOf(quickObjectWrapped);
 
             // then
             assertThat(title).isEqualTo("Object: " + name);

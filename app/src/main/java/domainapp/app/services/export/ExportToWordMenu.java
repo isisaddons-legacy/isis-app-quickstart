@@ -45,15 +45,15 @@ import org.isisaddons.module.docx.dom.DocxService;
 import org.isisaddons.module.docx.dom.LoadTemplateException;
 import org.isisaddons.module.docx.dom.MergeException;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
+import domainapp.dom.quick.QuickObject;
+import domainapp.dom.quick.QuickObjectMenu;
 
 @DomainService
 @DomainServiceLayout(
-        named="Simple Objects",
+        named="Quick Objects",
         menuOrder = "30"
 )
-public class ExportToWordService {
+public class ExportToWordMenu {
 
     //region > exportToWordDoc (action)
 
@@ -66,7 +66,7 @@ public class ExportToWordService {
     @MemberOrder(sequence = "10")
     public Blob exportToWordDoc() throws IOException, JDOMException, MergeException {
 
-        final List<SimpleObject> list = simpleObjectMenu.listAll();
+        final List<QuickObject> list = quickObjectMenu.listAll();
         return exportToWordDoc(list);
     }
 
@@ -74,14 +74,14 @@ public class ExportToWordService {
 
     //region > exportToWordDoc (programmatic)
     @Programmatic
-    public Blob exportToWordDoc(final List<SimpleObject> items) {
+    public Blob exportToWordDoc(final List<QuickObject> items) {
         return exportToWordDocCatchExceptions(items);
     }
 
-    private Blob exportToWordDocCatchExceptions(final List<SimpleObject> simpleObjects)  {
+    private Blob exportToWordDocCatchExceptions(final List<QuickObject> quickObjects)  {
         final org.w3c.dom.Document w3cDocument;
         try {
-            w3cDocument = asInputW3cDocument(simpleObjects);
+            w3cDocument = asInputW3cDocument(quickObjects);
 
             final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
             docxService.merge(w3cDocument, getWordprocessingMLPackage(), docxTarget, DocxService.MatchingPolicy.LAX);
@@ -101,14 +101,14 @@ public class ExportToWordService {
         return clockService.nowAsLocalDateTime().toString("yyyyMMdd'_'HHmmss");
     }
 
-    private org.w3c.dom.Document asInputW3cDocument(final List<SimpleObject> items) throws JDOMException {
+    private org.w3c.dom.Document asInputW3cDocument(final List<QuickObject> items) throws JDOMException {
         final Document jdomDoc = asInputDocument(items);
 
         final DOMOutputter domOutputter = new DOMOutputter();
         return domOutputter.output(jdomDoc);
     }
 
-    private Document asInputDocument(final List<SimpleObject> simpleObjects) {
+    private Document asInputDocument(final List<QuickObject> quickObjects) {
 
         final Element html = new Element("html");
         final Document document = new Document(html);
@@ -119,9 +119,9 @@ public class ExportToWordService {
         addPara(body, "ExportedOn", "date", clockService.nowAsLocalDateTime().toString("dd-MMM-yyyy"));
 
         final Element table = addTable(body, "SimpleObjects");
-        for(final SimpleObject simpleObject: simpleObjects) {
+        for(final QuickObject quickObject : quickObjects) {
             addTableRow(table,
-                    new String[] { simpleObject.getName() });
+                    new String[] { quickObject.getName() });
         }
         return document;
     }
@@ -219,7 +219,7 @@ public class ExportToWordService {
     private DocxService docxService;
 
     @javax.inject.Inject
-    private SimpleObjectMenu simpleObjectMenu;
+    private QuickObjectMenu quickObjectMenu;
 
     @javax.inject.Inject
     private ClockService clockService;

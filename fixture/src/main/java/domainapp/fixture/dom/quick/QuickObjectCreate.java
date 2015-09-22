@@ -17,14 +17,14 @@
  *  under the License.
  */
 
-package domainapp.fixture.dom.simple;
+package domainapp.fixture.dom.quick;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
+import domainapp.dom.quick.QuickObject;
+import domainapp.dom.quick.QuickObjectMenu;
 
-public class SimpleObjectCreate extends FixtureScript {
+public class QuickObjectCreate extends FixtureScript {
 
     //region > name (input)
     private String name;
@@ -35,7 +35,7 @@ public class SimpleObjectCreate extends FixtureScript {
         return name;
     }
 
-    public SimpleObjectCreate setName(final String name) {
+    public QuickObjectCreate setName(final String name) {
         this.name = name;
         return this;
     }
@@ -43,14 +43,14 @@ public class SimpleObjectCreate extends FixtureScript {
 
 
     //region > simpleObject (output)
-    private SimpleObject simpleObject;
+    private QuickObject quickObject;
 
     /**
      * The created simple object (output).
      * @return
      */
-    public SimpleObject getSimpleObject() {
-        return simpleObject;
+    public QuickObject getQuickObject() {
+        return quickObject;
     }
     //endregion
 
@@ -59,13 +59,13 @@ public class SimpleObjectCreate extends FixtureScript {
 
         String name = checkParam("name", ec, String.class);
 
-        this.simpleObject = wrap(simpleObjectMenu).create(name);
+        this.quickObject = wrap(quickObjectMenu).create(name);
 
         // also make available to UI
-        ec.addResult(this, simpleObject);
+        ec.addResult(this, quickObject);
     }
 
     @javax.inject.Inject
-    private SimpleObjectMenu simpleObjectMenu;
+    private QuickObjectMenu quickObjectMenu;
 
 }

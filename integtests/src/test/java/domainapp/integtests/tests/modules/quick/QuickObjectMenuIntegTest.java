@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.integtests.tests.modules.simple;
+package domainapp.integtests.tests.modules.quick;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -33,71 +33,71 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
-import domainapp.fixture.dom.simple.SimpleObjectsTearDown;
-import domainapp.fixture.scenarios.RecreateSimpleObjects;
+import domainapp.dom.quick.QuickObject;
+import domainapp.dom.quick.QuickObjectMenu;
+import domainapp.fixture.dom.quick.QuickObjectsTearDown;
+import domainapp.fixture.scenarios.RecreateQuickObjects;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObjectMenuIntegTest extends DomainAppIntegTest {
+public class QuickObjectMenuIntegTest extends DomainAppIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    SimpleObjectMenu simpleObjectMenu;
+    QuickObjectMenu quickObjectMenu;
 
-    public static class ListAll extends SimpleObjectMenuIntegTest {
+    public static class ListAll extends QuickObjectMenuIntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            RecreateSimpleObjects fs = new RecreateSimpleObjects();
+            RecreateQuickObjects fs = new RecreateQuickObjects();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 
             // when
-            final List<SimpleObject> all = wrap(simpleObjectMenu).listAll();
+            final List<QuickObject> all = wrap(quickObjectMenu).listAll();
 
             // then
-            assertThat(all).hasSize(fs.getSimpleObjects().size());
+            assertThat(all).hasSize(fs.getQuickObjects().size());
 
-            SimpleObject simpleObject = wrap(all.get(0));
-            assertThat(simpleObject.getName()).isEqualTo(fs.getSimpleObjects().get(0).getName());
+            QuickObject quickObject = wrap(all.get(0));
+            assertThat(quickObject.getName()).isEqualTo(fs.getQuickObjects().get(0).getName());
         }
 
         @Test
         public void whenNone() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleObjectsTearDown();
+            FixtureScript fs = new QuickObjectsTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 
             // when
-            final List<SimpleObject> all = wrap(simpleObjectMenu).listAll();
+            final List<QuickObject> all = wrap(quickObjectMenu).listAll();
 
             // then
             assertThat(all).hasSize(0);
         }
     }
 
-    public static class Create extends SimpleObjectMenuIntegTest {
+    public static class Create extends QuickObjectMenuIntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleObjectsTearDown();
+            FixtureScript fs = new QuickObjectsTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 
             // when
-            wrap(simpleObjectMenu).create("Faz");
+            wrap(quickObjectMenu).create("Faz");
 
             // then
-            final List<SimpleObject> all = wrap(simpleObjectMenu).listAll();
+            final List<QuickObject> all = wrap(quickObjectMenu).listAll();
             assertThat(all).hasSize(1);
         }
 
@@ -105,17 +105,17 @@ public class SimpleObjectMenuIntegTest extends DomainAppIntegTest {
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleObjectsTearDown();
+            FixtureScript fs = new QuickObjectsTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
-            wrap(simpleObjectMenu).create("Faz");
+            wrap(quickObjectMenu).create("Faz");
             nextTransaction();
 
             // then
             expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
 
             // when
-            wrap(simpleObjectMenu).create("Faz");
+            wrap(quickObjectMenu).create("Faz");
             nextTransaction();
         }
 

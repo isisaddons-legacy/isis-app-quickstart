@@ -19,12 +19,12 @@
 
 package domainapp.fixture.scenarios.spreadsheets;
 
-import domainapp.dom.simple.SimpleObject;
+import domainapp.dom.quick.QuickObject;
 import domainapp.fixture.CreateUsingSpreadsheetAbstract;
 
-public class CreateUsingSpreadsheetSimpleObjects extends CreateUsingSpreadsheetAbstract<SimpleObject> {
+public class CreateUsingSpreadsheetQuickObjects extends CreateUsingSpreadsheetAbstract<QuickObject> {
 
-    public CreateUsingSpreadsheetSimpleObjects() {
-        super(SimpleObject.class);
+    public CreateUsingSpreadsheetQuickObjects() {
+        super(QuickObject.class);
     }
 }

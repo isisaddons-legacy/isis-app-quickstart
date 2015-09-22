@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.simple;
+package domainapp.dom.quick;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
@@ -69,7 +69,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         bookmarking = BookmarkPolicy.AS_ROOT,
         cssClassFa = "fa-flag"
 )
-public class SimpleObject implements Comparable<SimpleObject> {
+public class QuickObject implements Comparable<QuickObject> {
 
 
     //region > identificatiom
@@ -97,8 +97,8 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > updateName (action)
 
-    public static class UpdateNameDomainEvent extends ActionDomainEvent<SimpleObject> {
-        public UpdateNameDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+    public static class UpdateNameDomainEvent extends ActionDomainEvent<QuickObject> {
+        public UpdateNameDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -106,7 +106,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Action(
             domainEvent = UpdateNameDomainEvent.class
     )
-    public SimpleObject updateName(
+    public QuickObject updateName(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "New name")
             final String name) {
@@ -139,8 +139,8 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > updateInteger (action)
 
-    public static class UpdateIntegerDomainEvent extends ActionDomainEvent<SimpleObject> {
-        public UpdateIntegerDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+    public static class UpdateIntegerDomainEvent extends ActionDomainEvent<QuickObject> {
+        public UpdateIntegerDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -148,7 +148,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Action(
             domainEvent = UpdateIntegerDomainEvent.class
     )
-    public SimpleObject updateInteger(
+    public QuickObject updateInteger(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "New integer")
             final Integer integer) {
@@ -177,8 +177,8 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > updateLocalDate (action)
 
-    public static class UpdateLocalDateDomainEvent extends ActionDomainEvent<SimpleObject> {
-        public UpdateLocalDateDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+    public static class UpdateLocalDateDomainEvent extends ActionDomainEvent<QuickObject> {
+        public UpdateLocalDateDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -186,7 +186,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Action(
             domainEvent = UpdateLocalDateDomainEvent.class
     )
-    public SimpleObject updateLocalDate(
+    public QuickObject updateLocalDate(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "New localdate")
             final LocalDate localdate) {
@@ -215,8 +215,8 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > updateBoolean (action)
 
-    public static class UpdateBooleanDomainEvent extends ActionDomainEvent<SimpleObject> {
-        public UpdateBooleanDomainEvent(final SimpleObject source, final Identifier identifier, final Object... arguments) {
+    public static class UpdateBooleanDomainEvent extends ActionDomainEvent<QuickObject> {
+        public UpdateBooleanDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -224,7 +224,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Action(
             domainEvent = UpdateBooleanDomainEvent.class
     )
-    public SimpleObject updateBoolean(
+    public QuickObject updateBoolean(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "New boolean")
             final Boolean aBoolean) {
@@ -247,7 +247,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     //region > compareTo
 
     @Override
-    public int compareTo(final SimpleObject other) {
+    public int compareTo(final QuickObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

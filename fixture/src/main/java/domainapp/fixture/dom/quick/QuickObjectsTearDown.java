@@ -17,12 +17,12 @@
  *  under the License.
  */
 
-package domainapp.fixture.dom.simple;
+package domainapp.fixture.dom.quick;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class SimpleObjectsTearDown extends FixtureScript {
+public class QuickObjectsTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
