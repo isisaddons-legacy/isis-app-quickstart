@@ -19,15 +19,19 @@
 
 package domainapp.fixture.scenarios;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.google.common.io.Resources;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.excel.dom.ExcelFixture;
+
 import domainapp.dom.quick.QuickObject;
 import domainapp.fixture.dom.quick.QuickObjectsTearDown;
-import domainapp.fixture.scenarios.spreadsheets.CreateUsingSpreadsheetQuickObjects;
+import domainapp.fixture.scenarios.spreadsheets.QuickObjectRowHandler;
 
 public class RecreateQuickObjects extends FixtureScript {
 
@@ -51,19 +55,17 @@ public class RecreateQuickObjects extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext ec) {
 
-        // defaults
-        final int number = defaultParam("number", ec, 3);
-
         //
         // execute
         //
         ec.executeChild(this, new QuickObjectsTearDown());
 
-        final CreateUsingSpreadsheetQuickObjects fs = new CreateUsingSpreadsheetQuickObjects();
-        fs.setResourceName("QuickObjects-1.xlsx");
+        final ExcelFixture fs = new ExcelFixture(
+                Resources.getResource(QuickObjectRowHandler.class, "QuickObjects-1.xlsx"),
+                QuickObject.class, QuickObjectRowHandler.class);
         ec.executeChild(this, fs);
 
-        getQuickObjects().addAll(fs.getObjects());
-
+        final List objects = fs.getObjects();
+        getQuickObjects().addAll((Collection<? extends QuickObject>) objects);
     }
 }

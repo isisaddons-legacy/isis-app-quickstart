@@ -66,7 +66,7 @@ public class QuickObjectMenu {
             @ParameterLayout(named="Name")
             final String name
     ) {
-        return quickObjectRepository.findByName(name);
+        return quickObjectRepository.findByNameContains(name);
     }
     //endregion
 

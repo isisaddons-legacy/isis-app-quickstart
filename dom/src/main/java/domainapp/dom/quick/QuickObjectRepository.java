@@ -44,7 +44,22 @@ public class QuickObjectRepository {
     //region > findByName (programmatic)
 
     @Programmatic
-    public List<QuickObject> findByName(
+    public QuickObject findByName(
+            @ParameterLayout(named="Name")
+            final String name
+    ) {
+        return container.uniqueMatch(
+                new QueryDefault<>(
+                        QuickObject.class,
+                        "findByName",
+                        "name", name));
+    }
+    //endregion
+
+    //region > findByNameContains (programmatic)
+
+    @Programmatic
+    public List<QuickObject> findByNameContains(
             @ParameterLayout(named="Name")
             final String name
     ) {
@@ -67,6 +82,22 @@ public class QuickObjectRepository {
     }
 
     //endregion
+
+    //region > findOrCreate (programmatic)
+
+    @Programmatic
+    public QuickObject findOrCreate(
+            @ParameterLayout(named="Name")
+            final String name
+    ) {
+        QuickObject quickObject = findByName(name);
+        if(quickObject == null) {
+            quickObject = create(name);
+        }
+        return quickObject;
+    }
+    //endregion
+
 
     //region > injected services
 
