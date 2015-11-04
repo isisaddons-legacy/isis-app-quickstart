@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://module.dto.domainapp/simpleobject.xsd"
+<xs:schema targetNamespace="http://module.dto.domainapp/quickobject.xsd"
     elementFormDefault="qualified"
-    xmlns="http://module.dto.domainapp/simpleobject.xsd"
+    xmlns="http://module.dto.domainapp/quickobject.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
 
-    <xs:element name="simpleObjectDto">
+    <xs:element name="quickObjectDto">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="oid" type="oidDto"/>
                 <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="localDate" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="integer" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="flag" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

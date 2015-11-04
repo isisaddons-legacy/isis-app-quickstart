@@ -2,6 +2,7 @@ package domainapp.webapp;
 
 import java.util.concurrent.Callable;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.core.metamodel.services.ServicesInjectorSpi;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
@@ -35,9 +36,12 @@ public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
             final String themeName = IsisContext.doInSession(new Callable<String>() {
                 @Override
                 public String call() throws Exception {
+                    final String currentUserName = currentUserName();
+
                     final Class<UserSettingsService> serviceClass = UserSettingsService.class;
                     final UserSettingsService userSettingsService = lookupService(serviceClass);
-                    final UserSetting activeTheme = userSettingsService.find(IsisContext.getAuthenticationSession().getUserName(), ACTIVE_THEME);
+
+                    final UserSetting activeTheme = userSettingsService.find(currentUserName, ACTIVE_THEME);
                     return activeTheme != null ? activeTheme.valueAsString() : null;
                 }
             });
@@ -51,14 +55,14 @@ public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
         IsisContext.doInSession(new Runnable() {
             @Override
             public void run() {
-                final String currentUsrName = IsisContext.getAuthenticationSession().getUserName();
+                final String currentUserName = currentUserName();
 
                 final UserSettingsServiceRW userSettingsService = getServicesInjector().lookupService(UserSettingsServiceRW.class);
-                final UserSettingJdo activeTheme = (UserSettingJdo) userSettingsService.find(currentUsrName, ACTIVE_THEME);
+                final UserSettingJdo activeTheme = (UserSettingJdo) userSettingsService.find(currentUserName, ACTIVE_THEME);
                 if(activeTheme != null) {
                     activeTheme.updateAsString(themeName);
                 } else {
-                    userSettingsService.newString(currentUsrName, ACTIVE_THEME, "Active Bootstrap theme for user", themeName);
+                    userSettingsService.newString(currentUserName, ACTIVE_THEME, "Active Bootstrap theme for user", themeName);
                 }
             }
         });
@@ -84,6 +88,11 @@ public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
 
     protected <T> T lookupService(final Class<T> serviceClass) {
         return getServicesInjector().lookupService(serviceClass);
+    }
+
+    protected String currentUserName() {
+        final DomainObjectContainer container = getServicesInjector().lookupService(DomainObjectContainer.class);
+        return container.getUser().getName();
     }
 
     // //////////////////////////////////////

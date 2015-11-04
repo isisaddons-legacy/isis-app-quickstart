@@ -40,29 +40,37 @@
 
         <isis-module-audit.version>1.10.0-SNAPSHOT</isis-module-audit.version>
         <isis-module-command.version>1.10.0-SNAPSHOT</isis-module-command.version>
-        <isis-module-event.version>1.10.0-SNAPSHOT</isis-module-event.version>
+        <isis-module-devutils.version>1.10.0-SNAPSHOT</isis-module-devutils.version>
+        <isis-module-docx.version>1.10.0-SNAPSHOT</isis-module-docx.version>
         <isis-module-excel.version>1.10.0-SNAPSHOT</isis-module-excel.version>
+        <isis-module-fakedata.version>1.10.0-SNAPSHOT</isis-module-fakedata.version>
+        <isis-module-poly.version>1.10.0-SNAPSHOT</isis-module-poly.version>
         <isis-module-publishing.version>1.10.0-SNAPSHOT</isis-module-publishing.version>
         <isis-module-security.version>1.10.0-SNAPSHOT</isis-module-security.version>
         <isis-module-sessionlogger.version>1.10.0-SNAPSHOT</isis-module-sessionlogger.version>
         <isis-module-settings.version>1.10.0-SNAPSHOT</isis-module-settings.version>
+        <isis-module-servletapi.version>1.10.0-SNAPSHOT</isis-module-servletapi.version>
+        <isis-module-stringinterpolator.version>1.10.0-SNAPSHOT</isis-module-stringinterpolator.version>
         <isis-module-togglz.version>1.10.0-SNAPSHOT</isis-module-togglz.version>
-
-        <isis-module-devutils.version>1.10.0-SNAPSHOT</isis-module-devutils.version>
-        <isis-module-docx.version>1.10.0-SNAPSHOT</isis-module-docx.version>
 
         <isis-wicket-excel.version>1.10.0-SNAPSHOT</isis-wicket-excel.version>
         <isis-wicket-fullcalendar2.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2.version>
         <isis-wicket-gmap3.version>1.10.0-SNAPSHOT</isis-wicket-gmap3.version>
 
+        <incode-module-note.version>1.10.0-SNAPSHOT</incode-module-note.version>
+        <incode-module-commchannel.version>1.10.0-SNAPSHOT</incode-module-commchannel.version>
+
         <jbcrypt.version>0.3m</jbcrypt.version>
+        <togglz.version>2.1.0.Final</togglz.version>
+
+        <lombok.version>1.16.6</lombok.version>
+
         <assertj-core.version>2.0.0</assertj-core.version>
         <orika-core.version>1.4.5</orika-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <togglz.version>2.1.0.Final</togglz.version>
     </properties>
 
     <repositories>
@@ -278,6 +286,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.isisaddons.metamodel.paraname8</groupId>
+                <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                <version>${isis-metamodel-paraname8.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj-core.version}</version>
@@ -315,121 +329,393 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.isisaddons.metamodel.paraname8</groupId>
-                <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                <version>${isis-metamodel-paraname8.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.audit</groupId>
-                <artifactId>isis-module-audit-dom</artifactId>
-                <version>${isis-module-audit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.command</groupId>
-                <artifactId>isis-module-command-dom</artifactId>
-                <version>${isis-module-command.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.devutils</groupId>
-                <artifactId>isis-module-devutils-dom</artifactId>
-                <version>${isis-module-devutils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.event</groupId>
-                <artifactId>isis-module-event-dom</artifactId>
-                <version>${isis-module-event.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.excel</groupId>
-                <artifactId>isis-module-excel-dom</artifactId>
-                <version>${isis-module-excel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.security</groupId>
-                <artifactId>isis-module-security-dom</artifactId>
-                <version>${isis-module-security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.sessionlogger</groupId>
-                <artifactId>isis-module-sessionlogger-dom</artifactId>
-                <version>${isis-module-sessionlogger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.settings</groupId>
-                <artifactId>isis-module-settings-dom</artifactId>
-                <version>${isis-module-settings.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.publishing</groupId>
-                <artifactId>isis-module-publishing-dom</artifactId>
-                <version>${isis-module-publishing.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.docx</groupId>
-                <artifactId>isis-module-docx-dom</artifactId>
-                <version>${isis-module-docx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.togglz</groupId>
-                <artifactId>isis-module-togglz-glue</artifactId>
-                <version>${isis-module-togglz.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.wicket.excel</groupId>
-                <artifactId>isis-wicket-excel-cpt</artifactId>
-                <version>${isis-wicket-excel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
-                <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                <version>${isis-wicket-fullcalendar2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.wicket.gmap3</groupId>
-                <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                <version>${isis-wicket-gmap3.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mindrot</groupId>
-                <artifactId>jbcrypt</artifactId>
-                <version>${jbcrypt.version}</version>
-            </dependency>
-
+            <!-- used by DomainAppContentMappingService impl -->
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>
                 <artifactId>orika-core</artifactId>
                 <version>${orika-core.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.togglz</groupId>
-                <artifactId>togglz-core</artifactId>
-                <version>${togglz.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.togglz</groupId>
-                <artifactId>togglz-junit</artifactId>
-                <version>${togglz.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.togglz</groupId>
-                <artifactId>togglz-servlet</artifactId>
-                <version>${togglz.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.togglz</groupId>
-                <artifactId>togglz-console</artifactId>
-                <version>${togglz.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
 
     <profiles>
+        <profile>
+            <id>isisaddons-module-audit</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-audit</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.audit</groupId>
+                        <artifactId>isis-module-audit-dom</artifactId>
+                        <version>${isis-module-audit.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-command</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-command</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.command</groupId>
+                        <artifactId>isis-module-command-dom</artifactId>
+                        <version>${isis-module-command.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-devutils</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-devutils</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.devutils</groupId>
+                        <artifactId>isis-module-devutils-dom</artifactId>
+                        <version>${isis-module-devutils.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-docx</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-docx</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.docx</groupId>
+                        <artifactId>isis-module-docx-dom</artifactId>
+                        <version>${isis-module-docx.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-excel</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-excel</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.excel</groupId>
+                        <artifactId>isis-module-excel-dom</artifactId>
+                        <version>${isis-module-excel.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-fakedata</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-fakedata</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.fakedata</groupId>
+                        <artifactId>isis-module-fakedata-dom</artifactId>
+                        <version>${isis-module-fakedata.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-poly</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-poly</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.poly</groupId>
+                        <artifactId>isis-module-poly-dom</artifactId>
+                        <version>${isis-module-poly.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-publishing</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-publishing</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.publishing</groupId>
+                        <artifactId>isis-module-publishing-dom</artifactId>
+                        <version>${isis-module-publishing.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-security</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-security</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.security</groupId>
+                        <artifactId>isis-module-security-dom</artifactId>
+                        <version>${isis-module-security.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.mindrot</groupId>
+                        <artifactId>jbcrypt</artifactId>
+                        <version>${jbcrypt.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-servletapi</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-servletapi</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.servletapi</groupId>
+                        <artifactId>isis-module-servletapi-dom</artifactId>
+                        <version>${isis-module-servletapi.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-sessionlogger</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-sessionlogger</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.sessionlogger</groupId>
+                        <artifactId>isis-module-sessionlogger-dom</artifactId>
+                        <version>${isis-module-sessionlogger.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-settings</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-settings</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.settings</groupId>
+                        <artifactId>isis-module-settings-dom</artifactId>
+                        <version>${isis-module-settings.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-stringinterpolator</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-stringinterpolator</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.stringinterpolator</groupId>
+                        <artifactId>isis-module-stringinterpolator-dom</artifactId>
+                        <version>${isis-module-stringinterpolator.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-module-togglz</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-togglz</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.module.togglz</groupId>
+                        <artifactId>isis-module-togglz-dom</artifactId>
+                        <version>${isis-module-togglz.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.isisaddons.module.togglz</groupId>
+                        <artifactId>isis-module-togglz-glue</artifactId>
+                        <version>${isis-module-togglz.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.togglz</groupId>
+                        <artifactId>togglz-core</artifactId>
+                        <version>${togglz.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.togglz</groupId>
+                        <artifactId>togglz-junit</artifactId>
+                        <version>${togglz.version}</version>
+                        <scope>test</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.togglz</groupId>
+                        <artifactId>togglz-servlet</artifactId>
+                        <version>${togglz.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.togglz</groupId>
+                        <artifactId>togglz-console</artifactId>
+                        <version>${togglz.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+        <profile>
+            <id>isisaddons-wicket-excel</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-wicket-excel</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.wicket.excel</groupId>
+                        <artifactId>isis-wicket-excel-cpt</artifactId>
+                        <version>${isis-wicket-excel.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-wicket-fullcalendar2</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-wicket-fullcalendar2</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+                        <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+                        <version>${isis-wicket-fullcalendar2.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>isisaddons-wicket-gmap3</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-wicket-gmap3</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.isisaddons.wicket.gmap3</groupId>
+                        <artifactId>isis-wicket-gmap3-cpt</artifactId>
+                        <version>${isis-wicket-gmap3.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+        <profile>
+            <id>incode-module-commchannel</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-module-commchannel</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.incode.module.commchannel</groupId>
+                        <artifactId>incode-module-commchannel-dom</artifactId>
+                        <version>${incode-module-commchannel.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>incode-module-note</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-module-note</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.incode.module.note</groupId>
+                        <artifactId>incode-module-note-dom</artifactId>
+                        <version>${incode-module-note.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+        <profile>
+            <id>lombok</id>
+            <activation>
+                <property>
+                    <name>!skip.lombok</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>${lombok.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
         <profile>
             <id>m2e</id>
             <activation>

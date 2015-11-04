@@ -23,24 +23,27 @@ public class QuickObjectRowHandler implements ExcelFixtureRowHandler {
     private String name;
 
     @Getter @Setter
-    private Integer anInteger;
+    private Integer integer;
 
     @Getter @Setter
     private LocalDate localDate;
 
     @Getter @Setter
-    private Boolean aBoolean;
+    private Boolean flag;
 
     @Override
     public List<Object> handleRow(
             final FixtureScript.ExecutionContext executionContext,
             final ExcelFixture excelFixture,
             final Object previousRow) {
+
         final QuickObject quickObject = quickObjectRepository.findOrCreate(name);
-        quickObject.setBoolean(getABoolean());
-        quickObject.setInteger(getAnInteger());
+
+        quickObject.setFlag(getFlag());
+        quickObject.setInteger(getInteger());
         quickObject.setLocalDate(getLocalDate());
-        executionContext.addResult(excelFixture, this);
+
+        executionContext.addResult(excelFixture, quickObject);
         return Collections.singletonList(quickObject);
     }
 

@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.seed;
+package domainapp.app.seed;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -76,10 +76,10 @@ public class DomainAppRolesAndPermissionsSeedService {
             executionContext.executeChild(this, new TogglzModuleAdminRole());
             executionContext.executeChild(this, new AuditModuleRoleAndPermissions());
             executionContext.executeChild(this, new CommandModuleRoleAndPermissions());
+            executionContext.executeChild(this, new DevUtilsModuleRoleAndPermissions());
+            executionContext.executeChild(this, new PublishingModuleRoleAndPermissions());
             executionContext.executeChild(this, new SessionLoggerModuleRoleAndPermissions());
             executionContext.executeChild(this, new SettingsModuleRoleAndPermissions());
-            executionContext.executeChild(this, new PublishingModuleRoleAndPermissions());
-            executionContext.executeChild(this, new DevUtilsModuleRoleAndPermissions());
 
             executionContext.executeChild(this, new TranslationServicePoMenuRoleAndPermissions());
 

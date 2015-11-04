@@ -19,6 +19,7 @@
 
 package domainapp.fixture.scenarios;
 
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,16 +56,16 @@ public class RecreateQuickObjects extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext ec) {
 
-        //
-        // execute
-        //
+        // zap everything
         ec.executeChild(this, new QuickObjectsTearDown());
 
-        final ExcelFixture fs = new ExcelFixture(
-                Resources.getResource(QuickObjectRowHandler.class, "QuickObjects-1.xlsx"),
-                QuickObject.class, QuickObjectRowHandler.class);
+        // load data from spreadsheet
+        final URL spreadsheet = Resources.getResource(QuickObjectRowHandler.class, "QuickObjects-1.xlsx");
+        Class<?>[] handlers = new Class[]{QuickObject.class, QuickObjectRowHandler.class};
+        final ExcelFixture fs = new ExcelFixture(spreadsheet, handlers);
         ec.executeChild(this, fs);
 
+        // make objects created by ExcelFixture available to our caller.
         final List objects = fs.getObjects();
         getQuickObjects().addAll((Collection<? extends QuickObject>) objects);
     }

@@ -67,9 +67,9 @@
                                 }
                             }
                         },
-                        "boolean": {
+                        "flag": {
                             "actions": {
-                                "updateBoolean": {
+                                "updateFlag": {
                                     "actionLayout": {
                                         "position": "BOTTOM"
                                     }

@@ -1,0 +1,188 @@
+= Demo script
+
+== Prereqs
+
+Exclude the various isis addon modules by default:
+
+[source,java]
+----
+public class DomainAppAppManifest implements AppManifest {
+
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+
+                DomainAppDomainModule.class     // entities and domain services
+                ,DomainAppFixtureModule.class   // fixture scripts and FixtureScriptsSpecificationProvider
+//                ,DomainAppAppModule.class     // DomainAppRolesAndPermissionsSeedService (requires security module)
+
+                ,org.isisaddons.module.excel.ExcelModule.class       // to run fixtures
+                ,org.isisaddons.module.settings.SettingsModule.class // used by DomainAppUserSettingsThemeProvider
+
+//                ,org.isisaddons.module.audit.AuditModule.class
+//                ,org.isisaddons.module.command.CommandModule.class
+//                ,org.isisaddons.module.devutils.DevUtilsModule.class
+//                ,org.isisaddons.module.docx.DocxModule.class
+//                ,org.isisaddons.module.fakedata.FakeDataModule.class
+//                ,org.isisaddons.module.publishing.PublishingModule.class
+//                ,org.isisaddons.module.security.SecurityModule.class
+//                ,org.isisaddons.module.sessionlogger.SessionLoggerModule.class
+//                ,org.incode.module.note.dom.NoteModule.class
+//                ,org.incode.module.commchannel.dom.CommChannelModule.class
+                );
+    }
+    ...
+}
+----
+
+These are all still defined in the `pom.xml` so on the classpath, however we don't scan for the services that they expose.
+
+
+There's no need to disable shiro; we can use the `DomainAppAppManifestWithFixturesBypassSecurity` app manifest initially.
+
+
+
+== Running the app
+
+* Set up a launch configuration
+** embedded Jetty, `org.apache.isis.WebServer`
+** or can build a WAR file
+
+[source,bash]
+----
+--manifest domainapp.app.DomainAppAppManifestWithFixturesBypassSecurity --port 8080
+----
+
+Run the app (Wicket viewer):
+
+* login as any user/password combo
+** security has been bypassed
+
+* current user shown top-right
+
+
+
+
+Work way around the page:
+
+* the core business functionality
+** list objects
+** update object
+** create object
+
+
+top-right:
+
+* prototyping menu
+** fixture scripts; can re-run (we use an in-memory database for demos and testing)
+** i18n (more later if we have time)
+
+* settings (add-on service)
+** application epoch, user preferences
+
+
+
+bottom-right:
+
+* change theme (is persisted as a user setting)
+* about page (prototype mode)
+* breadcrumbs
+
+
+top-left:
+
+* bookmark panel (`ctrl-[`)
+* title anchor (`ctrl-]`)
+
+
+== Review the app
+
+* Domain services
+
+** `QuickObjectMenu`
+*** menu actions: _List All_, _Find By Name_, _Create_
+*** delegates to `QuickObjectRepository` ... uses JDO on the `QuickObject` (or type-safe queries also supported)
+
+** "Prototyping" menu
+*** run fixture script, recreate Objects
+
+** `QuickObjectRepository`
+
+* Domain entities
+
+
+
+
+lombok
+--parameters (paraname8)
+
+excel fixture
+
+- running in-memory
+
+
+`.layout.json`
+
+
+-parameters
+
+
+=== View the app manifest
+
+
+
+== Extending the app
+
+
+== Refactoring the app
+
+
+== Notes
+
+
+== Comm Channels
+
+
+== Leveraging gmap3 ourselves
+
+
+== Security
+
+* configure shiro.ini
+
+* set up some users
+
+
+
+== Home page
+
+
+== Command
+
+== Auditing
+
+
+== Settings
+
+
+== Togglz
+
+
+
+== Polymorphic
+
+
+
+== Event bus
+
+
+
+== RESTful
+
+
+== Canonical
+
+
+== BDD/Cucumber
+
+

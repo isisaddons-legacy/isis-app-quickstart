@@ -56,7 +56,7 @@ public class ExportAsXmlContributions extends AbstractFactoryAndRepository {
     }
 
     public String default1ExportAsXml() {
-        return "simpleObject";
+        return "quickObject";
     }
     //endregion
 
@@ -84,7 +84,7 @@ public class ExportAsXmlContributions extends AbstractFactoryAndRepository {
     }
 
     public String default1ExportAsXml(final HomePageViewModel viewModel) {
-        return "simpleObject";
+        return "quickObjects";
     }
     //endregion
 

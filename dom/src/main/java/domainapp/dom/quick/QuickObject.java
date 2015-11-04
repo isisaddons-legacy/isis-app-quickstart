@@ -25,24 +25,24 @@ import javax.jdo.annotations.VersionStrategy;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "simple",
-        table = "SimpleObject"
+        schema = "quick",
+        table = "QuickObject"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -77,194 +77,97 @@ import org.apache.isis.applib.util.ObjectContracts;
 public class QuickObject implements Comparable<QuickObject> {
 
 
-    //region > identificatiom
     public TranslatableString title() {
         return TranslatableString.tr("Object: {name}", "name", getName());
     }
-    //endregion
-
-    //region > name (property)
-
-    private String name;
-
-    @javax.jdo.annotations.Column(allowsNull="false", length = 40)
-    @Title(sequence="1")
-    @Property
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    // endregion
-
-    //region > updateName (action)
-
-    public static class UpdateNameDomainEvent extends ActionDomainEvent<QuickObject> {
-        public UpdateNameDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdateNameDomainEvent.class
-    )
-    public QuickObject updateName(
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "New name")
-            final String name) {
-        setName(name);
-        return this;
-    }
-
-    public String default0UpdateName() {
-        return getName();
-    }
-
-    public TranslatableString validateUpdateName(final String name) {
-        return name.contains("!")? TranslatableString.tr("Exclamation mark is not allowed"): null;
-    }
-
-    //endregion
-
-    //region > anInteger (property)
-    private Integer anInteger;
-
-    @javax.jdo.annotations.Column(allowsNull="true")
-    public Integer getInteger() {
-        return anInteger;
-    }
-
-    public void setInteger(final Integer anInteger) {
-        this.anInteger = anInteger;
-    }
-    //endregion
-
-    //region > updateInteger (action)
-
-    public static class UpdateIntegerDomainEvent extends ActionDomainEvent<QuickObject> {
-        public UpdateIntegerDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdateIntegerDomainEvent.class
-    )
-    public QuickObject updateInteger(
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "New integer")
-            final Integer integer) {
-        setInteger(integer);
-        return this;
-    }
-
-    public Integer default0UpdateInteger() {
-        return getInteger();
-    }
-
-    //endregion
-
-    //region > aLocalDate (property)
-    private LocalDate aLocalDate;
-
-    @javax.jdo.annotations.Column(allowsNull="true")
-    public LocalDate getLocalDate() {
-        return aLocalDate;
-    }
-
-    public void setLocalDate(final LocalDate aLocalDate) {
-        this.aLocalDate = aLocalDate;
-    }
-    //endregion
-
-    //region > updateLocalDate (action)
-
-    public static class UpdateLocalDateDomainEvent extends ActionDomainEvent<QuickObject> {
-        public UpdateLocalDateDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdateLocalDateDomainEvent.class
-    )
-    public QuickObject updateLocalDate(
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "New localdate")
-            final LocalDate localdate) {
-        setLocalDate(localdate);
-        return this;
-    }
-
-    public LocalDate default0UpdateLocalDate() {
-        return getLocalDate();
-    }
-
-    //endregion
-
-    //region > aBoolean (property)
-    private Boolean aBoolean;
-
-    @javax.jdo.annotations.Column(allowsNull="true")
-    public Boolean getBoolean() {
-        return aBoolean;
-    }
-
-    public void setBoolean(final Boolean aBoolean) {
-        this.aBoolean = aBoolean;
-    }
-    //endregion
-
-    //region > updateBoolean (action)
-
-    public static class UpdateBooleanDomainEvent extends ActionDomainEvent<QuickObject> {
-        public UpdateBooleanDomainEvent(final QuickObject source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdateBooleanDomainEvent.class
-    )
-    public QuickObject updateBoolean(
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "New boolean")
-            final Boolean aBoolean) {
-        setBoolean(aBoolean);
-        return this;
-    }
-
-    public Boolean default0UpdateBoolean() {
-        return getBoolean();
-    }
-
-    //endregion
-
-    //region > version (derived property)
-    public Long getVersionSequence() {
-        return (Long) JDOHelper.getVersion(this);
-    }
-    //endregion
-
-    //region > compareTo
 
     @Override
     public int compareTo(final QuickObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 
-    //endregion
 
-    //region > injected services
+
+    @javax.jdo.annotations.Column(allowsNull="false", length = 40)
+    @Property
+    @Getter @Setter
+    private String name;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    private Integer integer;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    private LocalDate localDate;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    private Boolean flag;
+
+
+    public Long getVersionSequence() {
+        return (Long) JDOHelper.getVersion(this);
+    }
+
+
+    public static class UpdateNameDomainEvent extends ActionDomainEvent<QuickObject> { }
+    @Action(domainEvent = UpdateNameDomainEvent.class)
+    public QuickObject updateName(
+            @Parameter(maxLength = 40)
+            final String newName) {
+        setName(newName);
+        return this;
+    }
+    public String default0UpdateName() {
+        return getName();
+    }
+    public TranslatableString validateUpdateName(final String name) {
+        return name.contains("!")? TranslatableString.tr("Exclamation mark is not allowed"): null;
+    }
+
+
+    public static class UpdateIntegerDomainEvent extends ActionDomainEvent<QuickObject> { }
+    @Action(domainEvent = UpdateIntegerDomainEvent.class)
+    public QuickObject updateInteger(
+            @Parameter(maxLength = 40)
+            final Integer newInteger) {
+        setInteger(newInteger);
+        return this;
+    }
+    public Integer default0UpdateInteger() {
+        return getInteger();
+    }
+
+
+    public static class UpdateLocalDateDomainEvent extends ActionDomainEvent<QuickObject> { }
+    @Action(domainEvent = UpdateLocalDateDomainEvent.class)
+    public QuickObject updateLocalDate(
+            @Parameter(maxLength = 40)
+            final LocalDate newLocaldate) {
+        setLocalDate(newLocaldate);
+        return this;
+    }
+    public LocalDate default0UpdateLocalDate() {
+        return getLocalDate();
+    }
+
+
+    public static class UpdateBooleanDomainEvent extends ActionDomainEvent<QuickObject> { }
+    @Action(domainEvent = UpdateBooleanDomainEvent.class)
+    public QuickObject updateFlag(
+            @Parameter(maxLength = 40)
+            final Boolean newFlag) {
+        setFlag(newFlag);
+        return this;
+    }
+    public Boolean default0UpdateFlag() {
+        return getFlag();
+    }
+
+
 
     @javax.inject.Inject
-    @SuppressWarnings("unused")
     private DomainObjectContainer container;
-
-    //endregion
-
 
 }

@@ -23,37 +23,41 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Maps;
+
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+
+import org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory;
+import org.isisaddons.module.security.facets.TenantedAuthorizationFacetFactory;
 
 import domainapp.dom.DomainAppDomainModule;
 import domainapp.fixture.DomainAppFixtureModule;
 
-/**
- * Bootstrap the application.
- */
 public class DomainAppAppManifest implements AppManifest {
 
-    /**
-     * Load all services and entities found in (the packages and subpackages within) these modules
-     */
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
-                org.isisaddons.module.audit.AuditModule.class,
-                org.isisaddons.module.command.CommandModule.class,
-                org.isisaddons.module.devutils.DevUtilsModule.class,
-                org.isisaddons.module.docx.DocxModule.class,
-                org.isisaddons.module.event.EventModule.class,
-                org.isisaddons.module.excel.ExcelModule.class,
-                org.isisaddons.module.publishing.PublishingModule.class,
-                org.isisaddons.module.sessionlogger.SessionLoggerModule.class,
-                org.isisaddons.module.security.SecurityModule.class,
-                org.isisaddons.module.settings.SettingsModule.class,
-                org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
-                DomainAppDomainModule.class,  // domain (entities and repositories)
-                DomainAppFixtureModule.class,
-                DomainAppAppModule.class
+
+                DomainAppDomainModule.class     // entities and domain services
+                ,DomainAppFixtureModule.class   // fixture scripts and FixtureScriptsSpecificationProvider
+//                ,DomainAppAppModule.class     // DomainAppRolesAndPermissionsSeedService (requires security module)
+
+                ,org.isisaddons.module.excel.ExcelModule.class // to run fixtures
+                ,org.isisaddons.module.settings.SettingsModule.class // used by DomainAppUserSettingsThemeProvider
+
+//                ,org.isisaddons.module.audit.AuditModule.class
+//                ,org.isisaddons.module.command.CommandModule.class
+//                ,org.isisaddons.module.devutils.DevUtilsModule.class
+//                ,org.isisaddons.module.docx.DocxModule.class
+//                ,org.isisaddons.module.fakedata.FakeDataModule.class
+//                ,org.isisaddons.module.publishing.PublishingModule.class
+//                ,org.isisaddons.module.security.SecurityModule.class
+//                ,org.isisaddons.module.sessionlogger.SessionLoggerModule.class
+//                ,org.incode.module.note.dom.NoteModule.class
+//                ,org.incode.module.commchannel.dom.CommChannelModule.class
                 );
     }
 
@@ -61,7 +65,6 @@ public class DomainAppAppManifest implements AppManifest {
     public List<Class<?>> getAdditionalServices() {
         return Arrays.asList(
                 org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt.class
-                , org.isisaddons.module.publishing.dom.eventserializer.RestfulObjectsSpecEventSerializer.class
         );
     }
 
@@ -101,8 +104,25 @@ public class DomainAppAppManifest implements AppManifest {
      * No overrides.
      */
     @Override
-    public Map<String, String> getConfigurationProperties() {
-        return null;
+    public final Map<String, String> getConfigurationProperties() {
+        Map<String,String> props = Maps.newHashMap();
+
+        props.put(
+                "isis.reflector.facets.include",
+                Joiner.on(',').join(
+                        NamedFacetOnParameterParaname8Factory.class.getName()
+                        , TenantedAuthorizationFacetFactory.class.getName()
+                ));
+
+        appendConfigurationProperties(props);
+        return props.isEmpty()? null: props;
+
+    }
+
+    /**
+     * Optional hook for subclasses
+     */
+    protected void appendConfigurationProperties(final Map<String, String> props) {
     }
 
 }

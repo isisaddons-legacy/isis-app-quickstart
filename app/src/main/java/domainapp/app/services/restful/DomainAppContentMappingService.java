@@ -32,8 +32,8 @@ import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.conmap.ContentMappingService;
 
 import domainapp.dom.quick.QuickObject;
-import domainapp.dto.module.simpleobject.OidDto;
-import domainapp.dto.module.simpleobject.SimpleObjectDto;
+import domainapp.dto.module.quickobject.OidDto;
+import domainapp.dto.module.quickobject.QuickObjectDto;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
@@ -49,7 +49,7 @@ public class DomainAppContentMappingService implements ContentMappingService {
     public void init() {
         mapperFactory = new DefaultMapperFactory.Builder().build();
         mapperFactory.registerClassMap(
-                mapperFactory.classMap(QuickObject.class, SimpleObjectDto.class)
+                mapperFactory.classMap(QuickObject.class, QuickObjectDto.class)
                         .byDefault() // all fields are the compatible
                         .toClassMap());
         mapperFactory.registerClassMap(
@@ -69,7 +69,7 @@ public class DomainAppContentMappingService implements ContentMappingService {
         if(object instanceof QuickObject) {
             final Bookmark bookmark = bookmarkService.bookmarkFor(object);
 
-            final SimpleObjectDto dto = mapperFactory.getMapperFacade().map(object, SimpleObjectDto.class);
+            final QuickObjectDto dto = mapperFactory.getMapperFacade().map(object, QuickObjectDto.class);
             final OidDto oidDto = mapperFactory.getMapperFacade().map(bookmark, OidDto.class);
 
             // manually wire together

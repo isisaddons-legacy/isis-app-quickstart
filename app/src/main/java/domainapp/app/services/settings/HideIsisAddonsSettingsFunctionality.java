@@ -18,9 +18,7 @@
  */
 package domainapp.app.services.settings;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -37,22 +35,11 @@ import org.isisaddons.module.settings.SettingsModule;
  *     Instead we expose settings using the {@link DomainAppSettingsService} wrapper.
  * </p>
  */
-@DomainService(nature = NatureOfService.DOMAIN)
-public class HideIsisAddonsSettingsFunctionality {
-
-    //region > postConstruct, preDestroy
-    @Programmatic
-    @PostConstruct
-    public void postConstruct() {
-        eventBusService.register(this);
-    }
-
-    @Programmatic
-    @PreDestroy
-    public void preDestroy() {
-        eventBusService.unregister(this);
-    }
-    //endregion
+@DomainService(
+        nature = NatureOfService.DOMAIN,
+        menuOrder = "1" // register before any domain services that post events
+)
+public class HideIsisAddonsSettingsFunctionality extends AbstractSubscriber {
 
     @Programmatic
     @com.google.common.eventbus.Subscribe

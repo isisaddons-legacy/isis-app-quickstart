@@ -138,7 +138,6 @@
 
     <dependencies>
     
-        <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>quickstart-app</artifactId>
@@ -158,12 +157,7 @@
             <artifactId>isis-core-security-shiro</artifactId>
         </dependency>
 
-
         <!-- isis core -->
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-runtime</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
@@ -173,13 +167,11 @@
             <artifactId>isis-core-security</artifactId>
         </dependency>
 
-
         <!-- enable -parameters support -->
         <dependency>
             <groupId>org.isisaddons.metamodel.paraname8</groupId>
             <artifactId>isis-metamodel-paraname8-dom</artifactId>
         </dependency>
-
 
         <!-- to run using WebServer (optional) -->
         <dependency>
@@ -225,24 +217,35 @@
           </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.isisaddons.module.togglz</groupId>
-            <artifactId>isis-module-togglz-glue</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.togglz</groupId>
-            <artifactId>togglz-servlet</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.togglz</groupId>
-            <artifactId>togglz-console</artifactId>
-        </dependency>
-
     </dependencies>
 
     <profiles>
+
+        <profile>
+            <id>isisaddons-module-togglz</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-togglz</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.togglz</groupId>
+                    <artifactId>isis-module-togglz-glue</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.togglz</groupId>
+                    <artifactId>togglz-servlet</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.togglz</groupId>
+                    <artifactId>togglz-console</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
         <profile>
             <id>self-host</id>
             <build>
@@ -284,6 +287,7 @@
                 </dependency>
             </dependencies>
         </profile>
+
         <profile>
             <id>jrebel</id>
             <properties>
@@ -365,6 +369,18 @@
                     <version>4.0</version>
                 </dependency>
             </dependencies>
+        </profile>
+
+        <profile>
+            <id>m2e</id>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <directory>target-ide</directory>
+            </build>
         </profile>
     </profiles>
 
