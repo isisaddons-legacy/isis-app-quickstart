@@ -36,7 +36,7 @@
                     "members": {
                         "versionSequence": {
                             "propertyLayout": {
-                                "name": "version",
+                                "named": "Version",
                                 "hidden": "ALL_TABLES"
                             }
                         }
@@ -75,16 +75,6 @@
                                     }
                                 }
                             }
-                        },
-                        "location": {
-                            "propertyLayout": {
-                                "hidden": "ALL_TABLES"
-                            }
-                        },
-                        "locationStr": {
-                            "propertyLayout": {
-                                "hidden": "EVERYWHERE"
-                            }
                         }
                     }
                 }
@@ -100,11 +90,5 @@
         }
     ],
     "actions": {
-        "delete": {
-            "actionLayout": {
-                "cssClass": "btn-warning",
-                "cssClassFa": "fa-ban"
-            }
-        }
     }
 }
