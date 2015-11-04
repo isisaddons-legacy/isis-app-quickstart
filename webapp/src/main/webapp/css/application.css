@@ -34,3 +34,6 @@ tr.done {
     color: #d3d3d3;
 }
 
+.collectionContentsAsAjaxTablePanel span {
+    color: black;
+}

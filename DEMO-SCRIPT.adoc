@@ -44,16 +44,20 @@ There's no need to disable shiro; we can use the `DomainAppAppManifestWithFixtur
 
 == Running the app
 
-* Set up a launch configuration
-** embedded Jetty, `org.apache.isis.WebServer`
-** or can build a WAR file
-
+* Set up a launch configuration to run using embedded Jetty, `org.apache.isis.WebServer`
++
 [source,bash]
 ----
 --manifest domainapp.app.DomainAppAppManifestWithFixturesBypassSecurity --port 8080
 ----
 
+** alternatively, can build a WAR file from Maven.
+
+
 Run the app (Wicket viewer):
+
+* review the console
+** database tables are being created (but against hsqldb in-memory)
 
 * login as any user/password combo
 ** security has been bypassed
@@ -71,6 +75,7 @@ Work way around the page:
 ** create object
 
 
+
 top-right:
 
 * prototyping menu
@@ -86,103 +91,432 @@ bottom-right:
 
 * change theme (is persisted as a user setting)
 * about page (prototype mode)
+
+
+bottom-left:
+
 * breadcrumbs
+
 
 
 top-left:
 
-* bookmark panel (`ctrl-[`)
-* title anchor (`ctrl-]`)
+* bookmark panel : kbd:[Ctrl + \[]
+* title anchor : kbd:[Ctrl + \]]
+
 
 
 == Review the app
 
-* Domain services
+How the UI corresponds to the Java code:
 
-** `QuickObjectMenu`
-*** menu actions: _List All_, _Find By Name_, _Create_
-*** delegates to `QuickObjectRepository` ... uses JDO on the `QuickObject` (or type-safe queries also supported)
+Domain services:
 
-** "Prototyping" menu
-*** run fixture script, recreate Objects
+* `QuickObjectMenu`
+** menu actions: _List All_, _Find By Name_, _Create_
+** delegates to `QuickObjectRepository` ... uses JDO on the `QuickObject` (or type-safe queries also supported)
 
-** `QuickObjectRepository`
-
-* Domain entities
+* `QuickObjectRepository`
+** hidden, autowired
 
 
+Domain entities:
+
+* `QuickObject`
+** JDO annotations
+** Lombok
+** actions
+
+* builds a metamodel dynamically
+** using Java reflection, annotations, naming conventions, optional layout files (`layout.json`)
+
+** supporting methods
 
 
-lombok
---parameters (paraname8)
-
-excel fixture
-
-- running in-memory
-
-
-`.layout.json`
+[source,java]
+----
+public String validate0UpdateInteger(final Integer newInteger) {
+    return newInteger.intValue() < 0? "No negatives!": null;
+}
+----
 
 
--parameters
-
-
-=== View the app manifest
+* cosmetics
+** title
+** icon (.png or font-awesome icon)
+** layout using `.layout.json`
 
 
 
-== Extending the app
+== Enhancing the app
 
 
-== Refactoring the app
+add the ability to delete a `QuickObject`
+
+* delegate to injected `DomainObjectContainer`
+
+[source,java]
+----
+@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
+public void delete() {
+    container.removeIfNotAlready(this);
+}
+----
+
+or as a slight refinement (delegating to an injected service):
+
+[source,java]
+----
+@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
+public List<QuickObject> delete() {
+    container.removeIfNotAlready(this);
+    return quickObjectRepository.listAll();
+}
+@javax.inject.Inject
+private QuickObjectRepository quickObjectRepository;
+----
 
 
-== Notes
+but some actions are dangerous in the domain...
+* so we can override icon (font-awesome) and colour (bootstrap):
+
+[source,javascript]
+----
+"delete": {
+    "actionLayout": {
+        "cssClass": "btn-warning",
+        "cssClassFa": "fa-ban"
+    }
+}
+----
 
 
-== Comm Channels
+Normally, though, picked up from `isis.properties` wildcards.
 
 
-== Leveraging gmap3 ourselves
+
+
+* validation
+
+
+[source,java]
+----
+public String validate0UpdateInteger(final Integer newInteger) {
+    return newInteger.intValue() < 0? "No negatives!": null;
+}
+----
+
+* disable
+
+* hide
+
+
+"see it, use it, do it"
+
+
+
+== Audience participation - extending the domain
+
+eg:
+
+... add a new class
+... add a new property, action etc.
+
+
+
+
+
+
+== Hooking in gmap3
+
+
+in `QuickObject`, make implement `Locatable` and then:
+
+
+[source,java]
+----
+@javax.jdo.annotations.Column(allowsNull="true")
+@Property
+@Getter @Setter
+private String locationStr;
+
+@Override
+public Location getLocation() {
+    return getLocationStr() != null? Location.fromString(getLocationStr()): null;
+}
+----
+
+
+in `QuickObjectRowHandler`:
+
+[source,java]
+----
+    @Override
+    public List<Object> handleRow(
+            final FixtureScript.ExecutionContext executionContext,
+            final ExcelFixture excelFixture,
+            final Object previousRow) {
+        ...
+        quickObject.setLocationStr(
+                new Location(
+                        51.5172 + random(-0.05, +0.05),
+                        0.1182 + random(-0.05, +0.05)).toString());
+        ...
+    }
+    private static double random(final double from, final double to) {
+        return Math.random() * (to-from) + from;
+    }
+----
+
+
+in `QuickObject.layout.json`, tweak the UI:
+
+[source,javascript]
+----
+"location": {
+    "propertyLayout": {
+        "hidden": "ALL_TABLES"
+    }
+},
+"locationStr": {
+    "propertyLayout": {
+        "hidden": "EVERYWHERE"
+    }
+}
+----
+
 
 
 == Security
 
-* configure shiro.ini
-
-* set up some users
+Let's think about the application "in the real world"; different users have different roles.
 
 
+Enable by:
 
-== Home page
+* running with the `DomainAppAppManifestWithFixtures` manifest
 
-
-== Command
-
-== Auditing
-
-
-== Settings
+* in `DomainAppAppManifest`, uncomment:
+** `DomainAppAppModule.class`
+** `org.isisaddons.module.security.SecurityModule.class`
 
 
-== Togglz
+When login:
+
+* can no longer login with arbitrary user
+* can login with `domainapp-admin/pass` or `isis-module-security-admin/pass`
 
 
+Login as `isis-module-security-admin/pass`
 
-== Polymorphic
-
-
-
-== Event bus
+* superuser for the security domain, though has no permissions (by default) to the business domain
 
 
 
-== RESTful
+Login as `domainapp-admin/pass` (set up by a domain-specific seed domain service)
+
+* can view "Quick Objects etc"
+
+* why: view `domainapp-regular-role`
+
+* create user `sven/pass`, place into pre-defined role `domainapp-regular-role`, enabled
 
 
-== Canonical
+Login as `sven/pass`
+
+* can view the business logic (but little else)
 
 
-== BDD/Cucumber
+Login as `domainapp-admin/pass`:
+
+* create role `QuickObjectPreventDelete`
+
+* veto CHANGING of QuickObject#delete
+
+* assign to `sven/pass`
 
 
+Login as `sven/pass`
+
+* delete action now disabled
+
+
+Login as `domainapp-admin/pass`:
+
+* edit role `QuickObjectPreventDelete`
+
+* veto VIEWING of `QuickObject#delete`
+
+
+Login as `sven/pass`
+
+* delete action now not visible.
+
+
+
+== Notes
+
+Add notes to quick objects...
+
+* uncomment the `incode-module-note` module from the app manifest
+
+* make `QuickObject` implement `Notable`.
+
+* add link object
+
+[source,java]
+----
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema="quick")
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject(
+        objectType = "quick.NotableLinkForQuickObject"
+)
+public class NotableLinkForQuickObject extends NotableLink {
+
+    @DomainService(nature = NatureOfService.DOMAIN, menuOrder = "1")
+    public static class InstantiationSubscriber extends AbstractSubscriber {
+        @Programmatic
+        @Subscribe
+        public void on(final InstantiateEvent ev) {
+            if(ev.getPolymorphicReference() instanceof QuickObject) {
+                ev.setSubtype(NotableLinkForQuickObject.class);
+            }
+        }
+    }
+
+    @Override
+    public void setPolymorphicReference(final Notable polymorphicReference) {
+        super.setPolymorphicReference(polymorphicReference);
+        setQuickObject((QuickObject) polymorphicReference);
+    }
+
+    @Column(
+            allowsNull = "false",
+            name = "demoObjectId"
+    )
+    @Getter @Setter
+    private QuickObject quickObject;
+
+    @javax.inject.Inject
+    private QuickObjectRepository quickObjectRepository;
+}
+----
+
+
+
+== Decoupling
+
+Long-term maintainability is important.  To prevent the "big ball of mud", the framework provides some powerful
+features.
+
+
+=== Event bus
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class NoNegatives extends AbstractSubscriber {
+    @Subscribe
+    public void on(QuickObject.UpdateIntegerDomainEvent ev) {
+        final AbstractDomainEvent.Phase eventPhase = ev.getEventPhase();
+        if(eventPhase == AbstractDomainEvent.Phase.VALIDATE) {
+            final Integer newInteger = (Integer) ev.getArguments().get(0);
+            if (newInteger.intValue() < 0) {
+                ev.veto("No negatives!!!");
+                return;
+            }
+        }
+    }
+}
+----
+
+[source,java]
+----
+        if(eventPhase == AbstractDomainEvent.Phase.DISABLE) {
+            ev.veto("Sorry, buddy");
+            return;
+        }
+----
+
+[source,java]
+----
+        if(eventPhase == AbstractDomainEvent.Phase.HIDE) {
+            ev.veto("");
+            return;
+        }
+----
+
+
+a more useful case: cascading deletes.  Update `QuickObject` to emit an event (to be typesafe)
+
+[source,java]
+----
+public static class DeleteDomainEvent extends ActionDomainEvent<QuickObject> { }
+@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE,domainEvent = DeleteDomainEvent.class)
+public List<QuickObject> delete() {
+    container.removeIfNotAlready(this);
+    return quickObjectRepository.listAll();
+}
+----
+
+
+New subscriber to find all associated notes, and remove.  A naive implementation might be:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+@DomainServiceLayout(menuOrder = "1")
+public class QuickObjectDeleteRelatedNotes extends AbstractSubscriber{
+
+    @Subscribe
+    public void on(QuickObject.DeleteDomainEvent ev) {
+        final AbstractDomainEvent.Phase eventPhase = ev.getEventPhase();
+        if(eventPhase == AbstractDomainEvent.Phase.EXECUTING) {
+            final QuickObject source = ev.getSource();
+            final List<NotableLink> links = notableLinkRepository.findByNotable(source);
+            for (NotableLink link : links) {
+                container.removeIfNotAlready(link);
+            }
+        }
+    }
+
+    @Inject NotableLinkRepository notableLinkRepository;
+}
+----
+
+
+=== Mixins
+
+Like traits; DCI architecture
+
+[source,java]
+----
+@Mixin
+public class QuickObject_delete {
+
+    private final QuickObject quickObject;
+
+    public QuickObject_delete(final QuickObject quickObject) {
+        this.quickObject = quickObject;
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
+    public void $$() {
+        container.removeIfNotAlready(quickObject);
+        return;
+    }
+
+    @Inject
+    DomainObjectContainer container;
+}
+----
+
+
+
+
+
+== Restful Objects
+
+"One more thing"...

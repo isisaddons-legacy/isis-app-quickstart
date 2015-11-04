@@ -75,6 +75,16 @@
                                     }
                                 }
                             }
+                        },
+                        "location": {
+                            "propertyLayout": {
+                                "hidden": "ALL_TABLES"
+                            }
+                        },
+                        "locationStr": {
+                            "propertyLayout": {
+                                "hidden": "EVERYWHERE"
+                            }
                         }
                     }
                 }
@@ -89,5 +99,12 @@
             "collections": {}
         }
     ],
-    "actions": {}
+    "actions": {
+        "delete": {
+            "actionLayout": {
+                "cssClass": "btn-warning",
+                "cssClassFa": "fa-ban"
+            }
+        }
+    }
 }

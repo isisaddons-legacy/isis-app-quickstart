@@ -11,6 +11,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 import domainapp.dom.quick.QuickObject;
 import domainapp.dom.quick.QuickObjectRepository;
@@ -43,9 +44,17 @@ public class QuickObjectRowHandler implements ExcelFixtureRowHandler {
         quickObject.setInteger(getInteger());
         quickObject.setLocalDate(getLocalDate());
 
+        quickObject.setLocationStr(
+                new Location(
+                        51.5172 + random(-0.05, +0.05),
+                        0.1182 + random(-0.05, +0.05)).toString());
         executionContext.addResult(excelFixture, quickObject);
         return Collections.singletonList(quickObject);
     }
+    private static double random(final double from, final double to) {
+        return Math.random() * (to-from) + from;
+    }
+
 
     @Inject
     QuickObjectRepository quickObjectRepository;

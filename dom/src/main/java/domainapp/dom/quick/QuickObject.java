@@ -18,6 +18,8 @@
  */
 package domainapp.dom.quick;
 
+import java.util.List;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -32,9 +34,14 @@ import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
+
+import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
+
+import org.incode.module.note.dom.api.notable.Notable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -71,10 +78,10 @@ import lombok.Setter;
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT,
-        cssClassFa = "fa-flag"
+        bookmarking = BookmarkPolicy.AS_ROOT
+        // ,cssClassFa = "fa-flag" // use the .png instead
 )
-public class QuickObject implements Comparable<QuickObject> {
+public class QuickObject implements Comparable<QuickObject>,Locatable, Notable {
 
 
     public TranslatableString title() {
@@ -94,21 +101,39 @@ public class QuickObject implements Comparable<QuickObject> {
     private String name;
 
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property
     @Getter @Setter
     private Integer integer;
 
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property
     @Getter @Setter
     private LocalDate localDate;
 
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property
     @Getter @Setter
     private Boolean flag;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Property
+    @Getter @Setter
+    private String locationStr;
+
+    @Override
+    public Location getLocation() {
+
+        return getLocationStr() != null? Location.fromString(getLocationStr()): null;
+    }
+
 
 
     public Long getVersionSequence() {
         return (Long) JDOHelper.getVersion(this);
     }
+
+
+
 
 
     public static class UpdateNameDomainEvent extends ActionDomainEvent<QuickObject> { }
@@ -130,7 +155,6 @@ public class QuickObject implements Comparable<QuickObject> {
     public static class UpdateIntegerDomainEvent extends ActionDomainEvent<QuickObject> { }
     @Action(domainEvent = UpdateIntegerDomainEvent.class)
     public QuickObject updateInteger(
-            @Parameter(maxLength = 40)
             final Integer newInteger) {
         setInteger(newInteger);
         return this;
@@ -143,7 +167,6 @@ public class QuickObject implements Comparable<QuickObject> {
     public static class UpdateLocalDateDomainEvent extends ActionDomainEvent<QuickObject> { }
     @Action(domainEvent = UpdateLocalDateDomainEvent.class)
     public QuickObject updateLocalDate(
-            @Parameter(maxLength = 40)
             final LocalDate newLocaldate) {
         setLocalDate(newLocaldate);
         return this;
@@ -156,7 +179,6 @@ public class QuickObject implements Comparable<QuickObject> {
     public static class UpdateBooleanDomainEvent extends ActionDomainEvent<QuickObject> { }
     @Action(domainEvent = UpdateBooleanDomainEvent.class)
     public QuickObject updateFlag(
-            @Parameter(maxLength = 40)
             final Boolean newFlag) {
         setFlag(newFlag);
         return this;
@@ -166,7 +188,16 @@ public class QuickObject implements Comparable<QuickObject> {
     }
 
 
+    public static class DeleteDomainEvent extends ActionDomainEvent<QuickObject> { }
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE,domainEvent = DeleteDomainEvent.class)
+    public List<QuickObject> delete() {
+        container.removeIfNotAlready(this);
+        return quickObjectRepository.listAll();
+    }
 
+
+    @javax.inject.Inject
+    private QuickObjectRepository quickObjectRepository;
     @javax.inject.Inject
     private DomainObjectContainer container;
 

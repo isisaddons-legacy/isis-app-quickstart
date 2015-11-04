@@ -578,11 +578,6 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.isisaddons.module.togglz</groupId>
-                        <artifactId>isis-module-togglz-dom</artifactId>
-                        <version>${isis-module-togglz.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.isisaddons.module.togglz</groupId>
                         <artifactId>isis-module-togglz-glue</artifactId>
                         <version>${isis-module-togglz.version}</version>
                     </dependency>
