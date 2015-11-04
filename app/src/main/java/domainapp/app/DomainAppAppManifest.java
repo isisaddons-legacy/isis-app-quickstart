@@ -57,9 +57,6 @@ public class DomainAppAppManifest implements AppManifest {
                 );
     }
 
-    /**
-     * No additional services.
-     */
     @Override
     public List<Class<?>> getAdditionalServices() {
         return Arrays.asList(
