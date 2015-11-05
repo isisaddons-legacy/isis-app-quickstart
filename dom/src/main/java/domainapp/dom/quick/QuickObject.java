@@ -66,7 +66,7 @@ import lombok.Setter;
                         + "FROM domainapp.dom.quick.QuickObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
-@javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
+@javax.jdo.annotations.Unique(name="QuickObject_name_UNQ", members = {"name"})
 @DomainObject(
         editing = Editing.DISABLED
 )
