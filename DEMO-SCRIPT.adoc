@@ -405,6 +405,26 @@ public class NotableLinkForQuickObject extends NotableLink {
 ----
 
 
+Will also need to update the seed data for security:
+
+[source,java]
+----
+public class DomainAppRegularRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
+    @Override
+    protected void execute(final ExecutionContext executionContext) {
+        newPackagePermissions(
+                ApplicationPermissionRule.ALLOW,
+                ApplicationPermissionMode.CHANGING,
+                "domainapp.app",
+                DomainAppDomainModule.class.getPackage().getName(),
+                NoteModule.class.getPackage().getName()                 // <1>
+                );
+    }
+}
+----
+<1> access to functionality contributed by the note module.
+
+
 
 == Decoupling
 
@@ -417,6 +437,7 @@ features.
 [source,java]
 ----
 @DomainService(nature = NatureOfService.DOMAIN)
+@DomainServiceLayout(menuOrder = "1")
 public class NoNegatives extends AbstractSubscriber {
     @Subscribe
     public void on(QuickObject.UpdateIntegerDomainEvent ev) {
@@ -432,6 +453,8 @@ public class NoNegatives extends AbstractSubscriber {
 }
 ----
 
+Can also disable:
+
 [source,java]
 ----
         if(eventPhase == AbstractDomainEvent.Phase.DISABLE) {
@@ -439,6 +462,8 @@ public class NoNegatives extends AbstractSubscriber {
             return;
         }
 ----
+
+Can even hide:
 
 [source,java]
 ----
@@ -448,8 +473,10 @@ public class NoNegatives extends AbstractSubscriber {
         }
 ----
 
+(Use this technique to hide contributed functionality eg from addon services).
 
-a more useful case: cascading deletes.  Update `QuickObject` to emit an event (to be typesafe)
+
+A more useful case: cascading deletes.  Update `QuickObject` to emit an event (to be typesafe)
 
 [source,java]
 ----
@@ -512,6 +539,23 @@ public class QuickObject_delete {
     DomainObjectContainer container;
 }
 ----
+
+to avoid confusion, hide the original `QuickObject#delete()` action:
+
+[source,java]
+----
+@ActionLayout(hidden = Where.EVERYWHERE)
+----
+
+
+Or, could go further and define a `Deletable` interface:
+
+[source,java]
+----
+public interface Deletable{}
+----
+
+then let `QuickObject`implement this, and refactor the mixin (rename to `Deletable_delete`).
 
 
 
