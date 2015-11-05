@@ -20,7 +20,6 @@ package domainapp.dom.quick;
 
 import java.util.List;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -71,11 +70,7 @@ public class QuickObjectMenu {
     //endregion
 
     //region > create (action)
-    public static class CreateDomainEvent extends ActionDomainEvent<QuickObjectMenu> {
-        public CreateDomainEvent(final QuickObjectMenu source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static class CreateDomainEvent extends ActionDomainEvent<QuickObjectMenu> { }
 
     @Action(
             domainEvent = CreateDomainEvent.class
