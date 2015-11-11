@@ -23,7 +23,7 @@
 
     <groupId>org.isisaddons.app</groupId>
     <artifactId>quickstart</artifactId>
-    <version>1.10.0-SNAPSHOT</version>
+    <version>1.11.0-SNAPSHOT</version>
 
     <name>Isis Addons Quickstart</name>
 
@@ -36,29 +36,29 @@
     <properties>
         <isis.version>1.10.0</isis.version>
 
-        <isis-metamodel-paraname8.version>1.10.0-SNAPSHOT</isis-metamodel-paraname8.version>
+        <isis-metamodel-paraname8.version>1.10.0</isis-metamodel-paraname8.version>
 
-        <isis-module-audit.version>1.10.0-SNAPSHOT</isis-module-audit.version>
-        <isis-module-command.version>1.10.0-SNAPSHOT</isis-module-command.version>
-        <isis-module-devutils.version>1.10.0-SNAPSHOT</isis-module-devutils.version>
-        <isis-module-docx.version>1.10.0-SNAPSHOT</isis-module-docx.version>
-        <isis-module-excel.version>1.10.0-SNAPSHOT</isis-module-excel.version>
-        <isis-module-fakedata.version>1.10.0-SNAPSHOT</isis-module-fakedata.version>
-        <isis-module-poly.version>1.10.0-SNAPSHOT</isis-module-poly.version>
-        <isis-module-publishing.version>1.10.0-SNAPSHOT</isis-module-publishing.version>
-        <isis-module-security.version>1.10.0-SNAPSHOT</isis-module-security.version>
-        <isis-module-sessionlogger.version>1.10.0-SNAPSHOT</isis-module-sessionlogger.version>
-        <isis-module-settings.version>1.10.0-SNAPSHOT</isis-module-settings.version>
-        <isis-module-servletapi.version>1.10.0-SNAPSHOT</isis-module-servletapi.version>
-        <isis-module-stringinterpolator.version>1.10.0-SNAPSHOT</isis-module-stringinterpolator.version>
-        <isis-module-togglz.version>1.10.0-SNAPSHOT</isis-module-togglz.version>
+        <isis-module-audit.version>1.10.0</isis-module-audit.version>
+        <isis-module-command.version>1.10.0</isis-module-command.version>
+        <isis-module-devutils.version>1.10.0</isis-module-devutils.version>
+        <isis-module-docx.version>1.10.0</isis-module-docx.version>
+        <isis-module-excel.version>1.10.0</isis-module-excel.version>
+        <isis-module-fakedata.version>1.10.0</isis-module-fakedata.version>
+        <isis-module-poly.version>1.10.0</isis-module-poly.version>
+        <isis-module-publishing.version>1.10.0</isis-module-publishing.version>
+        <isis-module-security.version>1.10.0</isis-module-security.version>
+        <isis-module-sessionlogger.version>1.10.0</isis-module-sessionlogger.version>
+        <isis-module-settings.version>1.10.0</isis-module-settings.version>
+        <isis-module-servletapi.version>1.10.0</isis-module-servletapi.version>
+        <isis-module-stringinterpolator.version>1.10.0</isis-module-stringinterpolator.version>
+        <isis-module-togglz.version>1.10.0</isis-module-togglz.version>
 
-        <isis-wicket-excel.version>1.10.0-SNAPSHOT</isis-wicket-excel.version>
-        <isis-wicket-fullcalendar2.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2.version>
-        <isis-wicket-gmap3.version>1.10.0-SNAPSHOT</isis-wicket-gmap3.version>
+        <isis-wicket-excel.version>1.10.0</isis-wicket-excel.version>
+        <isis-wicket-fullcalendar2.version>1.10.0</isis-wicket-fullcalendar2.version>
+        <isis-wicket-gmap3.version>1.10.0</isis-wicket-gmap3.version>
 
-        <incode-module-note.version>1.10.0-SNAPSHOT</incode-module-note.version>
-        <incode-module-commchannel.version>1.10.0-SNAPSHOT</incode-module-commchannel.version>
+        <incode-module-note.version>1.10.0</incode-module-note.version>
+        <incode-module-commchannel.version>1.10.0</incode-module-commchannel.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
         <togglz.version>2.1.0.Final</togglz.version>
