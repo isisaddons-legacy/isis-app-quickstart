@@ -64,7 +64,7 @@ import lombok.Setter;
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
                         + "FROM domainapp.dom.quick.QuickObject "
-                        + "WHERE name.indexOf(:name) >= 0 ")
+                        + "WHERE name == :name ")
 })
 @javax.jdo.annotations.Unique(name="QuickObject_name_UNQ", members = {"name"})
 @DomainObject(

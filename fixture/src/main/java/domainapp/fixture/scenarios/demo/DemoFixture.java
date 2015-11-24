@@ -17,11 +17,11 @@
  *  under the License.
  */
 
-package domainapp.fixture.scenarios;
+package domainapp.fixture.scenarios.demo;
 
 import java.net.URL;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.io.Resources;
@@ -31,27 +31,22 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 
 import domainapp.dom.quick.QuickObject;
+import domainapp.fixture.dom.quick.QuickObjectRowHandler;
 import domainapp.fixture.dom.quick.QuickObjectsTearDown;
-import domainapp.fixture.scenarios.spreadsheets.QuickObjectRowHandler;
+import lombok.Getter;
 
-public class RecreateQuickObjects extends FixtureScript {
+public class DemoFixture extends FixtureScript {
 
-
-    public RecreateQuickObjects() {
+    public DemoFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-
-    //region > simpleObjects (output)
+    /**
+     * The quick objects created by this fixture (output).
+     */
+    @Getter
     private final List<QuickObject> quickObjects = Lists.newArrayList();
 
-    /**
-     * The simpleobjects created by this fixture (output).
-     */
-    public List<QuickObject> getQuickObjects() {
-        return quickObjects;
-    }
-    //endregion
 
     @Override
     protected void execute(final ExecutionContext ec) {
@@ -60,13 +55,21 @@ public class RecreateQuickObjects extends FixtureScript {
         ec.executeChild(this, new QuickObjectsTearDown());
 
         // load data from spreadsheet
-        final URL spreadsheet = Resources.getResource(QuickObjectRowHandler.class, "QuickObjects-1.xlsx");
-        Class<?>[] handlers = new Class[]{QuickObject.class, QuickObjectRowHandler.class};
-        final ExcelFixture fs = new ExcelFixture(spreadsheet, handlers);
+        final URL spreadsheet = Resources.getResource(DemoFixture.class, "DemoFixture.xlsx");
+        final ExcelFixture fs = new ExcelFixture(spreadsheet, getHandlers());
         ec.executeChild(this, fs);
 
         // make objects created by ExcelFixture available to our caller.
-        final List objects = fs.getObjects();
-        getQuickObjects().addAll((Collection<? extends QuickObject>) objects);
+        final Map<Class, List<Object>> objectsByClass = fs.getObjectsByClass();
+
+        getQuickObjects().addAll((List)objectsByClass.get(QuickObject.class));
+        getQuickObjects().addAll((List)objectsByClass.get(QuickObjectRowHandler.class));
+    }
+
+    private Class[] getHandlers() {
+        return new Class[]{
+                QuickObject.class,
+                QuickObjectRowHandler.class
+        };
     }
 }

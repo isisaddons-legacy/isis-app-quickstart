@@ -36,7 +36,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import domainapp.dom.quick.QuickObject;
 import domainapp.dom.quick.QuickObjectMenu;
 import domainapp.fixture.dom.quick.QuickObjectsTearDown;
-import domainapp.fixture.scenarios.RecreateQuickObjects;
+import domainapp.fixture.scenarios.demo.DemoFixture;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,7 +53,7 @@ public class QuickObjectMenuIntegTest extends DomainAppIntegTest {
         public void happyCase() throws Exception {
 
             // given
-            RecreateQuickObjects fs = new RecreateQuickObjects();
+            DemoFixture fs = new DemoFixture();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 

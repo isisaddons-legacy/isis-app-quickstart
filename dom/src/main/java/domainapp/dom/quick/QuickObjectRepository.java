@@ -66,7 +66,7 @@ public class QuickObjectRepository {
         return container.allMatches(
                 new QueryDefault<>(
                         QuickObject.class,
-                        "findByName",
+                        "findByNameContains",
                         "name", name));
     }
     //endregion

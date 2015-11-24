@@ -1,4 +1,4 @@
-package domainapp.fixture.scenarios.spreadsheets;
+package domainapp.fixture.dom.quick;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +37,7 @@ public class QuickObjectRowHandler implements ExcelFixtureRowHandler {
             final ExcelFixture excelFixture,
             final Object previousRow) {
 
-        final QuickObject quickObject = quickObjectRepository.findOrCreate(name);
+        final QuickObject quickObject = repository.findOrCreate(name);
 
         quickObject.setFlag(getFlag());
         quickObject.setInteger(getInteger());
@@ -52,6 +52,6 @@ public class QuickObjectRowHandler implements ExcelFixtureRowHandler {
 
 
     @Inject
-    QuickObjectRepository quickObjectRepository;
+    QuickObjectRepository repository;
 
 }

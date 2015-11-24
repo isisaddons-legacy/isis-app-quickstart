@@ -16,44 +16,17 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package domainapp.app;
 
-package domainapp.fixture.dom.quick;
-
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-
-import domainapp.dom.quick.QuickObject;
-import domainapp.dom.quick.QuickObjectMenu;
-import lombok.Getter;
-import lombok.Setter;
-
-public class QuickObjectCreate extends FixtureScript {
-
-    /**
-     * input: name of the object (required)
-     */
-    @Getter @Setter
-    private String name;
-
-
-    /**
-     * The created simple object (output).
-     */
-    @Getter
-    private QuickObject quickObject;
-
+public class DomainAppAppManifestBypassSecurity extends DomainAppAppManifest {
 
     @Override
-    protected void execute(final ExecutionContext ec) {
-
-        String name = checkParam("name", ec, String.class);
-
-        this.quickObject = wrap(quickObjectMenu).create(name);
-
-        // also make available to UI
-        ec.addResult(this, quickObject);
+    public String getAuthenticationMechanism() {
+        return "bypass";
     }
 
-    @javax.inject.Inject
-    private QuickObjectMenu quickObjectMenu;
-
+    @Override
+    public String getAuthorizationMechanism() {
+        return "bypass";
+    }
 }

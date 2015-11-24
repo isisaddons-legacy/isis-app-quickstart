@@ -101,7 +101,7 @@ public class DomainAppAppManifest implements AppManifest {
     }
 
     /**
-     * No overrides.
+     * configure metamodel facets (paraname8 and tenanted authorization)
      */
     @Override
     public final Map<String, String> getConfigurationProperties() {

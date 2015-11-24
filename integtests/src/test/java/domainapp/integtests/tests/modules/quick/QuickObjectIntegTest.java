@@ -29,7 +29,7 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import domainapp.dom.quick.QuickObject;
-import domainapp.fixture.scenarios.RecreateQuickObjects;
+import domainapp.fixture.scenarios.demo.DemoFixture;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,14 +38,14 @@ public class QuickObjectIntegTest extends DomainAppIntegTest {
     @Inject
     FixtureScripts fixtureScripts;
 
-    RecreateQuickObjects fs;
+    DemoFixture fs;
     QuickObject quickObjectPojo;
     QuickObject quickObjectWrapped;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new RecreateQuickObjects();
+        fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         quickObjectPojo = fs.getQuickObjects().get(0);

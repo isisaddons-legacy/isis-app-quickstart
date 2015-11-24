@@ -25,7 +25,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.fixture.scenarios.RecreateQuickObjects;
+import domainapp.fixture.scenarios.demo.DemoFixture;
 
 public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
 
@@ -34,7 +34,7 @@ public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.newArrayList(RecreateQuickObjects.class);
+        return Lists.newArrayList(DemoFixture.class);
     }
 
     /**
