@@ -43,7 +43,7 @@ public class DomainAppAppManifest implements AppManifest {
 
                 DomainAppDomainModule.class     // entities and domain services
                 ,DomainAppFixtureModule.class   // fixture scripts and FixtureScriptsSpecificationProvider
-//                ,DomainAppAppModule.class     // DomainAppRolesAndPermissionsSeedService (requires security module)
+                ,DomainAppAppModule.class     // DomainAppRolesAndPermissionsSeedService (requires security module)
 
                 ,org.isisaddons.module.excel.ExcelModule.class // to run fixtures
                 ,org.isisaddons.module.settings.SettingsModule.class // used by DomainAppUserSettingsThemeProvider
@@ -54,7 +54,7 @@ public class DomainAppAppManifest implements AppManifest {
 //                ,org.isisaddons.module.docx.DocxModule.class
 //                ,org.isisaddons.module.fakedata.FakeDataModule.class
 //                ,org.isisaddons.module.publishing.PublishingModule.class
-//                ,org.isisaddons.module.security.SecurityModule.class
+                ,org.isisaddons.module.security.SecurityModule.class
 //                ,org.isisaddons.module.sessionlogger.SessionLoggerModule.class
 //                ,org.incode.module.note.dom.NoteModule.class
 //                ,org.incode.module.commchannel.dom.CommChannelModule.class
