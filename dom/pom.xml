@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>quickstart</artifactId>
-        <version>1.11.0-SNAPSHOT</version>
+        <version>1.13.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>quickstart-dom</artifactId>
@@ -253,15 +253,6 @@
             <activation>
                 <property>
                     <name>!skip.isisaddons-module-command</name>
-                </property>
-            </activation>
-            <!-- no API exposed to dom classes -->
-        </profile>
-        <profile>
-            <id>isisaddons-module-devutils</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-devutils</name>
                 </property>
             </activation>
             <!-- no API exposed to dom classes -->
