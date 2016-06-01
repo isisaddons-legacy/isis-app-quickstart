@@ -18,6 +18,8 @@
  */
 package domainapp.integtests.tests.modules.quick;
 
+import java.sql.Timestamp;
+
 import javax.inject.Inject;
 
 import org.junit.Before;
@@ -27,6 +29,8 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
+import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
+import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
 import domainapp.dom.quick.QuickObject;
 import domainapp.fixture.scenarios.demo.DemoFixture;
@@ -118,4 +122,28 @@ public class QuickObjectIntegTest extends DomainAppIntegTest {
             assertThat(title).isEqualTo("Object: " + name);
         }
     }
+
+    public static class DataNucleusId extends QuickObjectIntegTest {
+
+        @Test
+        public void shouldBePopulated() throws Exception {
+            // when
+            final Long id = mixin(Persistable_datanucleusIdLong.class, quickObjectPojo).$$();
+            // then
+            assertThat(id).isGreaterThanOrEqualTo(0);
+        }
+    }
+
+    public static class DataNucleusVersionTimestamp extends QuickObjectIntegTest {
+
+        @Test
+        public void shouldBePopulated() throws Exception {
+            // when
+            final Timestamp timestamp = mixin(Persistable_datanucleusVersionTimestamp.class, quickObjectPojo).$$();
+            // then
+            assertThat(timestamp).isNotNull();
+        }
+    }
+
+
 }

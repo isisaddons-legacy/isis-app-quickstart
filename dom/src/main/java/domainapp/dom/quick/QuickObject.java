@@ -18,13 +18,11 @@
  */
 package domainapp.dom.quick;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -48,7 +46,8 @@ import lombok.Setter;
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
 @javax.jdo.annotations.Version(
-        strategy=VersionStrategy.VERSION_NUMBER, 
+//        strategy=VersionStrategy.VERSION_NUMBER,
+        strategy= VersionStrategy.DATE_TIME,
         column="version")
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
@@ -87,7 +86,6 @@ public class QuickObject implements Comparable<QuickObject> {
     }
 
 
-
     @javax.jdo.annotations.Column(allowsNull="false", length = 40)
     @Property
     @Getter @Setter
@@ -107,11 +105,6 @@ public class QuickObject implements Comparable<QuickObject> {
     @Property
     @Getter @Setter
     private Boolean flag;
-
-
-    public Long getVersionSequence() {
-        return (Long) JDOHelper.getVersion(this);
-    }
 
 
 
@@ -168,9 +161,5 @@ public class QuickObject implements Comparable<QuickObject> {
         return getFlag();
     }
 
-
-
-    @javax.inject.Inject
-    private DomainObjectContainer container;
 
 }

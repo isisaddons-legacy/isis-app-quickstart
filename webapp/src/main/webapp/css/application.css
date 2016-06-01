@@ -17,11 +17,13 @@
  *  under the License.
  */
 
+
 .navbar-brand img {
     margin-top: -7px;
     margin-left: 5px;
 }
 
+/*
 .x-key label.scalarName {
     color: red;
 }
@@ -37,3 +39,4 @@ tr.done {
 .collectionContentsAsAjaxTablePanel span {
     color: black;
 }
+*/

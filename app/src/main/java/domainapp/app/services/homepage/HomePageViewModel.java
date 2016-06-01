@@ -21,6 +21,7 @@ package domainapp.app.services.homepage;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.ViewModel;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import domainapp.dom.quick.QuickObject;
 import domainapp.dom.quick.QuickObjectRepository;
@@ -29,8 +30,8 @@ import domainapp.dom.quick.QuickObjectRepository;
 public class HomePageViewModel {
 
     //region > title
-    public String title() {
-        return getObjects().size() + " objects";
+    public TranslatableString title() {
+        return TranslatableString.tr("{num} objects", "num", getObjects().size());
     }
     //endregion
 

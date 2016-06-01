@@ -16,8 +16,6 @@
  */
 package domainapp.dom.seed.roles;
 
-import org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu;
-
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
@@ -35,7 +33,8 @@ public class TranslationServicePoMenuRoleAndPermissions extends AbstractRoleAndP
         newPackagePermissions(
                 ApplicationPermissionRule.ALLOW,
                 ApplicationPermissionMode.CHANGING,
-                TranslationServicePoMenu.class.getPackage().getName());
+                "org.apache.isis.core.runtime.services.i18n.po" // for TranslationServicePoMenu
+        );
     }
 
 }
