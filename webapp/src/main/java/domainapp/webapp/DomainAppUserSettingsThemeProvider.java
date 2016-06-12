@@ -1,12 +1,10 @@
 package domainapp.webapp;
 
-import java.util.concurrent.Callable;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.core.metamodel.services.ServicesInjector;
 import org.apache.isis.core.runtime.system.context.IsisContext;
-import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 
+import org.apache.isis.core.runtime.system.session.IsisSessionFactory;
 import org.isisaddons.module.settings.dom.UserSetting;
 import org.isisaddons.module.settings.dom.UserSettingsService;
 import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
@@ -32,18 +30,15 @@ public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
 
     @Override
     public ITheme getActiveTheme() {
-        if(IsisContext.getSpecificationLoader().isInitialized()) {
-            final String themeName = IsisContext.doInSession(new Callable<String>() {
-                @Override
-                public String call() throws Exception {
-                    final String currentUserName = currentUserName();
+        if(getIsisSessionFactory().getSpecificationLoader().isInitialized()) {
+            final String themeName = getIsisSessionFactory().doInSession(() -> {
+                final String currentUserName = currentUserName();
 
-                    final Class<UserSettingsService> serviceClass = UserSettingsService.class;
-                    final UserSettingsService userSettingsService = lookupService(serviceClass);
+                final Class<UserSettingsService> serviceClass = UserSettingsService.class;
+                final UserSettingsService userSettingsService = lookupService(serviceClass);
 
-                    final UserSetting activeTheme = userSettingsService.find(currentUserName, ACTIVE_THEME);
-                    return activeTheme != null ? activeTheme.valueAsString() : null;
-                }
+                final UserSetting activeTheme = userSettingsService.find(currentUserName, ACTIVE_THEME);
+                return activeTheme != null ? activeTheme.valueAsString() : null;
             });
             return themeFor(themeName);
         }
@@ -52,18 +47,15 @@ public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
 
     @Override
     public void setActiveTheme(final String themeName) {
-        IsisContext.doInSession(new Runnable() {
-            @Override
-            public void run() {
-                final String currentUserName = currentUserName();
+        getIsisSessionFactory().doInSession(() -> {
+            final String currentUserName = currentUserName();
 
-                final UserSettingsServiceRW userSettingsService = getServicesInjector().lookupService(UserSettingsServiceRW.class);
-                final UserSettingJdo activeTheme = (UserSettingJdo) userSettingsService.find(currentUserName, ACTIVE_THEME);
-                if(activeTheme != null) {
-                    activeTheme.updateAsString(themeName);
-                } else {
-                    userSettingsService.newString(currentUserName, ACTIVE_THEME, "Active Bootstrap theme for user", themeName);
-                }
+            final UserSettingsServiceRW userSettingsService = getServicesInjector().lookupService(UserSettingsServiceRW.class);
+            final UserSettingJdo activeTheme = (UserSettingJdo) userSettingsService.find(currentUserName, ACTIVE_THEME);
+            if(activeTheme != null) {
+                activeTheme.updateAsString(themeName);
+            } else {
+                userSettingsService.newString(currentUserName, ACTIVE_THEME, "Active Bootstrap theme for user", themeName);
             }
         });
     }
@@ -97,13 +89,14 @@ public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
 
     // //////////////////////////////////////
 
-    protected ServicesInjector getServicesInjector() {
-        return getPersistenceSession().getServicesInjector();
+    ServicesInjector getServicesInjector() {
+        return getIsisSessionFactory().getServicesInjector();
     }
 
-    protected PersistenceSession getPersistenceSession() {
-        return IsisContext.getPersistenceSession();
+    IsisSessionFactory getIsisSessionFactory() {
+        return IsisContext.getSessionFactory();
     }
+
 
 
 }
