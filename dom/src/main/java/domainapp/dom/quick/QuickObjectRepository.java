@@ -23,7 +23,6 @@ import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
@@ -45,7 +44,6 @@ public class QuickObjectRepository {
 
     @Programmatic
     public QuickObject findByName(
-            @ParameterLayout(named="Name")
             final String name
     ) {
         return container.uniqueMatch(
@@ -60,7 +58,6 @@ public class QuickObjectRepository {
 
     @Programmatic
     public List<QuickObject> findByNameContains(
-            @ParameterLayout(named="Name")
             final String name
     ) {
         return container.allMatches(
@@ -87,7 +84,6 @@ public class QuickObjectRepository {
 
     @Programmatic
     public QuickObject findOrCreate(
-            @ParameterLayout(named="Name")
             final String name
     ) {
         QuickObject quickObject = findByName(name);
