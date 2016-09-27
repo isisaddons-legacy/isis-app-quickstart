@@ -23,11 +23,11 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>quickstart</artifactId>
-        <version>1.13.0-SNAPSHOT</version>
+        <version>1.14.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>quickstart-canonical</artifactId>
-    <name>Isis Addons quickstart Canonical Data</name>
+    <name>App Quickstart Canonical Data</name>
 
 
     <build>

@@ -24,11 +24,11 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>quickstart</artifactId>
-        <version>1.13.0-SNAPSHOT</version>
+        <version>1.14.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>quickstart-integtests</artifactId>
-    <name>Isis Addons quickstart Integration Tests</name>
+    <name>App Quickstart Integration Tests</name>
 
     <build>
         <testResources>
